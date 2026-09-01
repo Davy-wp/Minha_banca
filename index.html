@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestor de Banca Betano Pro - Múltiplas & Triplas</title>
+  <title>Gestor de Banca Betano Pro - Múltiplas com Datalist</title>
   <style>
     :root {
       --bg: #121214;
@@ -290,17 +290,28 @@
     </div>
   </div>
 
+  <!-- Lista Dinâmica de Sugestões de Times -->
+  <datalist id="teamsList">
+    <option value="Al-Hilal"><option value="Al-Ahly"><option value="Al-Nassr"><option value="Al-Ittihad">
+    <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
+    <option value="Fluminense"><option value="Botafogo"><option value="Grêmio"><option value="Internacional">
+    <option value="Atlético-MG"><option value="Cruzeiro"><option value="Sport Recife"><option value="Ceará">
+    <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Bayern de Munique">
+    <option value="PSG"><option value="Boca Juniors"><option value="River Plate"><option value="Liverpool">
+    <option value="Arsenal"><option value="Chelsea"><option value="Juventus"><option value="Inter de Milão">
+  </datalist>
+
   <form id="betForm">
     <input type="date" id="betDate" required>
 
-    <!-- Construtor de Seleções (Simples, Duplas, Triplas e Múltiplas) -->
     <div class="add-selection-box">
       <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Adicionar Jogos e Mercados ao Bilhete:</span>
       
+      <!-- Campos de Mandante/Visitante recarregados com autocomplete (list="teamsList") -->
       <div class="match-inputs">
-        <input type="text" id="legHomeTeam" placeholder="Mandante (Ex: Al-Hilal)" autocomplete="off">
+        <input type="text" id="legHomeTeam" list="teamsList" placeholder="Mandante (Ex: Al-Hilal)" autocomplete="off">
         <span class="match-vs">x</span>
-        <input type="text" id="legAwayTeam" placeholder="Visitante (Ex: Al-Ahly)" autocomplete="off">
+        <input type="text" id="legAwayTeam" list="teamsList" placeholder="Visitante (Ex: Al-Ahly)" autocomplete="off">
       </div>
 
       <div class="category-grid">
@@ -487,7 +498,6 @@
         return;
       }
 
-      // Define título automático do bilhete (Simples, Dupla, Tripla ou Múltipla)
       let betTypeTitle = "Aposta Simples";
       if (tempLegs.length === 2) betTypeTitle = "Bilhete Duplo (2 Seleções)";
       else if (tempLegs.length === 3) betTypeTitle = "Bilhete Triplo (3 Seleções)";
@@ -712,3 +722,4 @@
 </body>
 </html>
 
+          
