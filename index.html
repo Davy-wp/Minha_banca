@@ -14,6 +14,7 @@
       --green: #00875f;
       --green-text: #00b37e;
       --red: #f75a68;
+      --yellow: #e1a100;
     }
 
     body {
@@ -22,14 +23,13 @@
       color: var(--text);
       padding: 15px;
       margin: 0;
-      max-width: 600px;
+      max-width: 650px;
       margin-left: auto;
       margin-right: auto;
     }
 
     h2 { text-align: center; margin-top: 5px; margin-bottom: 15px; font-size: 1.3rem; color: #fff; }
 
-    /* Dashboard */
     .dashboard {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -48,7 +48,6 @@
     .card h4 { margin: 0; font-size: 0.7rem; color: var(--subtext); text-transform: uppercase; }
     .card p { margin: 6px 0 0; font-size: 1.1rem; font-weight: bold; }
 
-    /* Banca Setup & Backup */
     .bank-setup {
       background: var(--card-bg);
       padding: 12px;
@@ -63,7 +62,6 @@
     .bank-row { display: flex; gap: 8px; align-items: center; }
     .bank-row label { font-size: 0.85rem; color: var(--subtext); min-width: 90px; }
 
-    /* Forms & Inputs */
     form {
       background: var(--card-bg);
       padding: 15px;
@@ -72,7 +70,7 @@
       margin-bottom: 15px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     input, select, button {
@@ -88,10 +86,36 @@
 
     input:focus, select:focus { outline: 1px solid var(--green); }
 
-    .btn-add { background: var(--green); color: #fff; font-weight: bold; border: none; cursor: pointer; }
-    .btn-add:active { opacity: 0.8; }
+    .add-selection-box {
+      background: #18181b;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-    /* Filters */
+    .btn-sec-add { background: #29292e; color: #fff; font-size: 0.85rem; font-weight: bold; cursor: pointer; border: 1px solid var(--border); }
+    .btn-add { background: var(--green); color: #fff; font-weight: bold; border: none; cursor: pointer; padding: 12px; }
+
+    .selections-builder {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .builder-item {
+      background: var(--card-bg);
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+    }
+
     .filters {
       display: flex;
       gap: 5px;
@@ -112,28 +136,67 @@
 
     .btn-filter.active { background: var(--green); color: #fff; border-color: var(--green); }
 
-    /* Bet List */
     .bet-item {
       background: var(--card-bg);
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .bet-date { font-size: 0.75rem; color: var(--subtext); font-weight: bold; }
+    .bet-title { font-size: 1.05rem; font-weight: bold; color: #fff; margin-top: 2px; }
+    .bet-financial { font-size: 0.85rem; color: var(--subtext); text-align: right; }
+
+    .legs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .leg-item {
+      background: #18181b;
+      padding: 8px 10px;
+      border-radius: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.85rem;
+      border-left: 3px solid var(--border);
     }
 
-    .bet-info { display: flex; flex-direction: column; gap: 3px; }
-    .bet-date { font-size: 0.75rem; color: var(--subtext); font-weight: bold; }
-    .bet-title { font-size: 1rem; font-weight: bold; color: #fff; }
-    .bet-details { font-size: 0.85rem; color: var(--subtext); }
+    .leg-item.green { border-left-color: var(--green-text); }
+    .leg-item.red { border-left-color: var(--red); }
+    .leg-item.pending { border-left-color: var(--yellow); }
 
-    .actions { display: flex; gap: 6px; align-items: center; }
-    .btn-green { background: var(--green); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .btn-red { background: var(--red); color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .leg-actions { display: flex; gap: 4px; }
+    .btn-mini-green { background: var(--green); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .btn-mini-red { background: var(--red); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+
+    .bet-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 5px;
+    }
+
+    .status-badge { font-size: 0.85rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+    .badge-green { background: rgba(0, 180, 126, 0.15); color: var(--green-text); }
+    .badge-red { background: rgba(247, 90, 104, 0.15); color: var(--red); }
+    .badge-pending { background: rgba(225, 161, 0, 0.15); color: var(--yellow); }
+
     .btn-del { background: #29292e; color: #a8a8b3; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
-
     .green-text { color: var(--green-text); font-weight: bold; }
     .red-text { color: var(--red); font-weight: bold; }
 
@@ -143,9 +206,8 @@
 </head>
 <body>
 
-  <h2>📊 Gestor de Banca Automatizado</h2>
+  <h2>📊 Gestor de Banca Betano</h2>
 
-  <!-- Dashboard -->
   <div class="dashboard">
     <div class="card"><h4>BANCA ATUAL</h4><p id="currentBank">R$ 0.00</p></div>
     <div class="card"><h4>LUCRO LÍQUIDO</h4><p id="totalProfit">R$ 0.00</p></div>
@@ -153,71 +215,79 @@
     <div class="card"><h4>YIELD (RETORNO)</h4><p id="yield">0%</p></div>
   </div>
 
-  <!-- Configuração de Banca Inicial e Ferramentas -->
   <div class="bank-setup">
     <div class="bank-row">
       <label for="initialBankInput">Banca Inicial:</label>
       <input type="number" id="initialBankInput" step="0.01" placeholder="Ex: 100.00" onchange="updateInitialBank(this.value)">
     </div>
     <div class="backup-actions">
-      <button class="btn-sec" onclick="exportData()">💾 Exportar Backup</button>
-      <button class="btn-sec" onclick="importData()">📂 Importar Backup</button>
-      <button class="btn-sec" style="color: var(--red);" onclick="resetAll()">⚠️ Resetar Tudo</button>
+      <button class="btn-sec" onclick="exportData()">💾 Backup</button>
+      <button class="btn-sec" onclick="importData()">📂 Restauração</button>
+      <button class="btn-sec" style="color: var(--red);" onclick="resetAll()">⚠️ Zerar Tudo</button>
     </div>
   </div>
 
-  <!-- Formulário de Cadastro de Aposta -->
   <form id="betForm">
-    <!-- Seletor de Data -->
     <input type="date" id="betDate" required>
 
-    <!-- Autocomplete de Times -->
-    <input type="text" id="match" list="teamsList" placeholder="Selecione ou Digite o Time / Confronto" required autocomplete="off">
+    <input type="text" id="match" list="teamsList" placeholder="Digite o Confronto (Ex: Al-Hilal x Al-Nassr)" required autocomplete="off">
     <datalist id="teamsList">
-      <!-- Brasileirão -->
       <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
       <option value="Fluminense"><option value="Vasco da Gama"><option value="Botafogo"><option value="Grêmio">
       <option value="Internacional"><option value="Atlético-MG"><option value="Cruzeiro"><option value="Bahia">
       <option value="Fortaleza"><option value="Athletico-PR"><option value="Santos"><option value="Ceará">
-      <option value="Sport Recife"><option value="Vitória"><option value="Juventude"><option value="Criciúma">
-      <!-- Internacionais -->
       <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Liverpool">
-      <option value="Arsenal"><option value="Bayern de Munique"><option value="PSG"><option value="Juventus">
-      <option value="Inter de Milão"><option value="Al-Hilal"><option value="Al-Nassr"><option value="Boca Juniors">
+      <option value="Arsenal"><option value="Bayern de Munique"><option value="PSG"><option value="Al-Hilal"><option value="Al-Nassr">
     </datalist>
 
-    <!-- Autocomplete de Mercados -->
-    <input type="text" id="market" list="marketsList" placeholder="Selecione ou Digite o Mercado" required autocomplete="off">
-    <datalist id="marketsList">
-      <option value="Chance Dupla (1X)">
-      <option value="Chance Dupla (X2)">
-      <option value="Chance Dupla (12 - Qualquer time vence)">
-      <option value="Resultado Final (Vitória Casa - 1)">
-      <option value="Resultado Final (Vitória Visitante - 2)">
-      <option value="Finalizações Totais (Chutes ao Gol)">
-      <option value="Ambas as Equipes Marcam (Sim)">
-      <option value="Ambas as Equipes Marcam (Não)">
-      <option value="Mais de 1.5 Gols (Over 1.5)">
-      <option value="Mais de 2.5 Gols (Over 2.5)">
-      <option value="Menos de 2.5 Gols (Under 2.5)">
-      <option value="Escanteios Totais (Mais de 8.5)">
-      <option value="Escanteios Totais (Mais de 9.5)">
-      <option value="Escanteios Totais (Mais de 10.5)">
-      <option value="Empate Anula Aposta (DNB)">
-      <option value="Handicap Asiático">
-      <option value="Criar Aposta (Combinada)">
-      <option value="Back Favorito">
-      <option value="Lay Zebra / Cobertura">
-      <option value="Cartões Totais">
-    </datalist>
+    <div class="add-selection-box">
+      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Adicionar Seleções ao Bilhete:</span>
+      
+      <input type="text" id="marketInput" list="marketsList" placeholder="Selecione ou Escreva a Seleção" autocomplete="off">
+      <datalist id="marketsList">
+        <option value="Escanteios: Mais de 2.5 (Time Mandante)">
+        <option value="Escanteios: Mais de 3.5 (Time Mandante)">
+        <option value="Escanteios: Mais de 4.5 (Time Mandante)">
+        <option value="Escanteios: Mais de 2.5 (Time Visitante)">
+        <option value="Escanteios: Mais de 3.5 (Time Visitante)">
+        <option value="Escanteios: Mais de 4.5 (Time Visitante)">
+        <option value="Escanteios: Mais de 7.5 (Total do Jogo)">
+        <option value="Escanteios: Mais de 8.5 (Total do Jogo)">
+        <option value="Escanteios: Mais de 9.5 (Total do Jogo)">
+        <option value="Escanteios: Mais de 10.5 (Total do Jogo)">
+        <option value="Chutes no Gol: +0.5 Chutes no Gol (Jogador)">
+        <option value="Chutes no Gol: +1.5 Chutes no Gol (Jogador)">
+        <option value="Finalizações: +1.5 Chutes Totais (Jogador)">
+        <option value="Finalizações: +2.5 Chutes Totais (Jogador)">
+        <option value="Chutes no Gol: +3.5 Chutes no Gol (Time Mandante)">
+        <option value="Chutes no Gol: +3.5 Chutes no Gol (Time Visitante)">
+        <option value="Gols: Ambas as Equipes Marcam (Sim)">
+        <option value="Gols: Ambas as Equipes Marcam (Não)">
+        <option value="Gols: Mais de 1.5 Gols na Partida">
+        <option value="Gols: Mais de 2.5 Gols na Partida">
+        <option value="Gols: Menos de 2.5 Gols na Partida">
+        <option value="Gols: Jogador para Marcar a Qualquer Momento">
+        <option value="Gols: Jogador para Dar Assistência">
+        <option value="Dupla Chance: Mandante ou Empate (1X)">
+        <option value="Dupla Chance: Visitante ou Empate (X2)">
+        <option value="Dupla Chance: Qualquer Time Vence (12)">
+        <option value="Resultado Final: Vitória do Mandante">
+        <option value="Resultado Final: Vitória do Visitante">
+        <option value="Cartões: Mais de 3.5 Cartões Amarelos">
+        <option value="Cartões: Jogador para Receber Cartão">
+        <option value="Empate Anula Aposta (DNB)">
+      </datalist>
+
+      <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Esta Seleção ao Bilhete</button>
+      <div id="builderList" class="selections-builder"></div>
+    </div>
 
     <input type="number" step="0.01" id="stake" placeholder="Stake / Valor Apostado (R$)" required>
-    <input type="number" step="0.01" id="odds" placeholder="Odd (Ex: 1.85)" required>
+    <input type="number" step="0.01" id="odds" placeholder="Odd Total do Bilhete (Ex: 1.90 ou 3.50)" required>
 
-    <button type="submit" class="btn-add">Cadastrar Aposta</button>
+    <button type="submit" class="btn-add">Cadastrar Bilhete de Aposta</button>
   </form>
 
-  <!-- Filtros de Visualização -->
   <div class="filters">
     <button class="btn-filter active" onclick="setFilter('all', this)">Todas</button>
     <button class="btn-filter" onclick="setFilter('pending', this)">Pendentes</button>
@@ -225,7 +295,6 @@
     <button class="btn-filter" onclick="setFilter('red', this)">Reds 🔴</button>
   </div>
 
-  <!-- Lista de Apostas -->
   <div id="betsList"></div>
 
   <script>
@@ -234,8 +303,8 @@
     let bets = JSON.parse(localStorage.getItem('myBets')) || [];
     let initialBank = parseFloat(localStorage.getItem('initialBank')) || 0;
     let currentFilter = 'all';
+    let tempLegs = [];
 
-    // Preenche a data de hoje por padrão
     document.getElementById('betDate').valueAsDate = new Date();
     document.getElementById('initialBankInput').value = initialBank ? initialBank : '';
 
@@ -245,40 +314,86 @@
       render();
     }
 
+    function addLegToForm() {
+      const input = document.getElementById('marketInput');
+      const val = input.value.trim();
+      if (val) {
+        tempLegs.push({ id: Date.now() + Math.random(), name: val, status: 'pending' });
+        input.value = '';
+        renderBuilder();
+      }
+    }
+
+    function removeLegFromForm(id) {
+      tempLegs = tempLegs.filter(l => l.id !== id);
+      renderBuilder();
+    }
+
+    function renderBuilder() {
+      const container = document.getElementById('builderList');
+      container.innerHTML = tempLegs.map(l => `
+        <div class="builder-item">
+          <span>📌 ${l.name}</span>
+          <button type="button" style="background:none; border:none; color:var(--red); cursor:pointer; font-weight:bold;" onclick="removeLegFromForm(${l.id})">✖</button>
+        </div>
+      `).join('');
+    }
+
     document.getElementById('betForm').addEventListener('submit', (e) => {
       e.preventDefault();
       
       const dateVal = document.getElementById('betDate').value;
       const match = document.getElementById('match').value;
-      const market = document.getElementById('market').value || 'Aposta Simples';
       const stake = parseFloat(document.getElementById('stake').value);
       const odds = parseFloat(document.getElementById('odds').value);
+
+      if (tempLegs.length === 0) {
+        const mVal = document.getElementById('marketInput').value.trim() || 'Aposta Simples';
+        tempLegs.push({ id: Date.now(), name: mVal, status: 'pending' });
+      }
 
       bets.unshift({
         id: Date.now(),
         date: dateVal,
         match,
-        market,
         stake,
         odds,
-        status: 'pending'
+        status: 'pending',
+        legs: tempLegs
       });
 
+      tempLegs = [];
+      renderBuilder();
       saveAndUpdate();
       e.target.reset();
       document.getElementById('betDate').valueAsDate = new Date();
     });
 
-    function resolveBet(id, status) {
-      const bet = bets.find(b => b.id === id);
+    function toggleLegStatus(betId, legId, newStatus) {
+      const bet = bets.find(b => b.id === betId);
       if (bet) {
-        bet.status = status;
+        const leg = bet.legs.find(l => l.id === legId);
+        if (leg) {
+          leg.status = (leg.status === newStatus) ? 'pending' : newStatus;
+        }
+
+        const hasRed = bet.legs.some(l => l.status === 'red');
+        const allGreen = bet.legs.every(l => l.status === 'green');
+
+        if (hasRed) {
+          bet.status = 'red';
+        } else if (allGreen && bet.legs.length > 0) {
+          bet.status = 'green';
+        } else {
+          bet.status = 'pending';
+        }
+
         saveAndUpdate();
       }
     }
 
     function deleteBet(id) {
-      if (confirm("Deseja apagar esta aposta especificamente?")) {
+      if (confirm("Deseja apagar este bilhete especificamente?")) {
         bets = bets.filter(b => b.id !== id);
         saveAndUpdate();
       }
@@ -339,29 +454,50 @@
           finishedCount++;
         }
 
-        // Filtro de exibição
         if (currentFilter !== 'all' && b.status !== currentFilter) {
           return;
         }
 
         const div = document.createElement('div');
         div.className = 'bet-item';
-        div.innerHTML = `
-          <div class="bet-info">
-            <span class="bet-date">📅 ${formatDateFormatted(b.date)}</span>
-            <span class="bet-title">${b.match}</span>
-            <span class="bet-details">${b.market} | R$ ${b.stake.toFixed(2)} @ <strong>${b.odds.toFixed(2)}</strong></span>
+
+        const legsHtml = (b.legs || []).map(l => `
+          <div class="leg-item ${l.status}">
+            <span>${l.status === 'green' ? '✅' : l.status === 'red' ? '❌' : '⏳'} ${l.name}</span>
+            <div class="leg-actions">
+              <button class="btn-mini-green" onclick="toggleLegStatus(${b.id}, ${l.id}, 'green')">🟢</button>
+              <button class="btn-mini-red" onclick="toggleLegStatus(${b.id}, ${l.id}, 'red')">🔴</button>
+            </div>
           </div>
-          <div class="actions">
-            ${b.status === 'pending' ? `
-              <button class="btn-green" onclick="resolveBet(${b.id}, 'green')">🟢</button>
-              <button class="btn-red" onclick="resolveBet(${b.id}, 'red')">🔴</button>
-            ` : `<span class="${b.status === 'green' ? 'green-text' : 'red-text'}">
-                ${profit > 0 ? '+' : ''}R$ ${profit.toFixed(2)}
-               </span>`}
-            <button class="btn-del" onclick="deleteBet(${b.id})" title="Excluir Aposta">🗑️</button>
+        `).join('');
+
+        let badgeClass = 'badge-pending';
+        let badgeText = 'PENDENTE ⏳';
+        if (b.status === 'green') { badgeClass = 'badge-green'; badgeText = 'GREEN 🟢'; }
+        if (b.status === 'red') { badgeClass = 'badge-red'; badgeText = 'RED 🔴'; }
+
+        div.innerHTML = `
+          <div class="bet-header">
+            <div>
+              <div class="bet-date">📅 ${formatDateFormatted(b.date)}</div>
+              <div class="bet-title">${b.match}</div>
+            </div>
+            <div class="bet-financial">
+              <strong>R$ ${b.stake.toFixed(2)}</strong> @ <strong>${b.odds.toFixed(2)}</strong>
+              <div>${b.status !== 'pending' ? `<span class="${profit >= 0 ? 'green-text' : 'red-text'}">${profit > 0 ? '+' : ''}R$ ${profit.toFixed(2)}</span>` : ''}</div>
+            </div>
+          </div>
+
+          <div class="legs-list">
+            ${legsHtml}
+          </div>
+
+          <div class="bet-footer">
+            <span class="status-badge ${badgeClass}">${badgeText}</span>
+            <button class="btn-del" onclick="deleteBet(${b.id})" title="Excluir Bilhete">🗑️ Excluir</button>
           </div>
         `;
+
         list.appendChild(div);
       });
 
@@ -375,7 +511,6 @@
       document.getElementById('yield').textContent = totalStaked ? `${((totalProfit / totalStaked) * 100).toFixed(1)}%` : '0%';
     }
 
-    // Exportar Backup
     function exportData() {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ bets, initialBank }));
       const dlAnchorElem = document.createElement('a');
@@ -384,7 +519,6 @@
       dlAnchorElem.click();
     }
 
-    // Importar Backup
     function importData() {
       const input = document.createElement('input');
       input.type = 'file';
@@ -416,3 +550,4 @@
 </body>
 </html>
 
+            
