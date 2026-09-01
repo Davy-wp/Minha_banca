@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestor de Banca Betano Pro - Ultra Market Edition</title>
+  <title>Gestor de Banca Betano Pro - Múltiplas & Triplas</title>
   <style>
     :root {
       --bg: #121214;
@@ -73,15 +73,6 @@
       gap: 12px;
     }
 
-    .match-inputs {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .match-inputs input { flex: 1; }
-    .match-vs { font-weight: bold; color: var(--subtext); font-size: 0.9rem; padding: 0 2px; }
-
     input, select, button {
       padding: 10px;
       border-radius: 6px;
@@ -104,6 +95,15 @@
       flex-direction: column;
       gap: 8px;
     }
+
+    .match-inputs {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .match-inputs input { flex: 1; }
+    .match-vs { font-weight: bold; color: var(--subtext); font-size: 0.85rem; }
 
     .category-grid {
       display: flex;
@@ -130,6 +130,14 @@
       align-items: center;
       border: 1px solid var(--border);
     }
+
+    .builder-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .builder-item-match { font-weight: bold; color: var(--green-text); font-size: 0.8rem; }
 
     .filters {
       display: flex;
@@ -190,6 +198,14 @@
       font-size: 0.85rem;
       border-left: 3px solid var(--border);
     }
+
+    .leg-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .leg-match-title { font-size: 0.75rem; color: var(--subtext); font-weight: bold; }
 
     .leg-item.green { border-left-color: var(--green-text); }
     .leg-item.red { border-left-color: var(--red); }
@@ -277,26 +293,19 @@
   <form id="betForm">
     <input type="date" id="betDate" required>
 
-    <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Confronto:</span>
-    <div class="match-inputs">
-      <input type="text" id="homeTeam" list="teamsList" placeholder="Mandante (Ex: Al-Hilal)" required autocomplete="off">
-      <span class="match-vs">x</span>
-      <input type="text" id="awayTeam" list="teamsList" placeholder="Visitante (Ex: Al-Ahly)" required autocomplete="off">
-    </div>
-
-    <datalist id="teamsList">
-      <option value="Al-Hilal"><option value="Al-Ahly"><option value="Al-Nassr"><option value="Al-Ittihad">
-      <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
-      <option value="Fluminense"><option value="Botafogo"><option value="Grêmio"><option value="Internacional">
-      <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Bayern de Munique">
-    </datalist>
-
+    <!-- Construtor de Seleções (Simples, Duplas, Triplas e Múltiplas) -->
     <div class="add-selection-box">
-      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Mercados Completos Betano:</span>
+      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Adicionar Jogos e Mercados ao Bilhete:</span>
       
+      <div class="match-inputs">
+        <input type="text" id="legHomeTeam" placeholder="Mandante (Ex: Al-Hilal)" autocomplete="off">
+        <span class="match-vs">x</span>
+        <input type="text" id="legAwayTeam" placeholder="Visitante (Ex: Al-Ahly)" autocomplete="off">
+      </div>
+
       <div class="category-grid">
         <select id="marketCategory" onchange="updateMarketOptions()">
-          <option value="">-- Escolha a Categoria --</option>
+          <option value="">-- Categoria Betano --</option>
           <option value="escanteios">🚩 Escanteios (Todos de 0.5 a 18.5)</option>
           <option value="gols">⚽ Gols & Ambas Marcam (0.5 a 10.5)</option>
           <option value="cartoes">🟨 Cartões (0.5 a 12.5)</option>
@@ -304,23 +313,23 @@
           <option value="finalizacoes">🚀 Finalizações Totais (0.5 a 25.5)</option>
           <option value="faltas">⚠️ Faltas (5.5 a 35.5)</option>
           <option value="impedimentos">🚩 Impedimentos (0.5 a 10.5)</option>
-          <option value="jogador">👤 Mercados de Jogadores (Chutes/Gols)</option>
-          <option value="resultado">🏆 Resultado, Dupla Chance & Handicap</option>
+          <option value="jogador">👤 Mercados de Jogadores</option>
+          <option value="resultado">🏆 Resultado & Handicap</option>
         </select>
 
         <select id="marketSelect">
-          <option value="">Selecione uma categoria acima...</option>
+          <option value="">Selecione a categoria acima...</option>
         </select>
       </div>
 
-      <input type="text" id="customMarketInput" placeholder="Ou digite o nome exato do jogador/mercado livre..." autocomplete="off">
+      <input type="text" id="customMarketInput" placeholder="Ou digite o mercado manualmente (Ex: Cristiano Ronaldo 1+ Chute)..." autocomplete="off">
 
-      <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Seleção ao Bilhete</button>
+      <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Seleção (Múltipla / Tripla)</button>
       <div id="builderList" class="selections-builder"></div>
     </div>
 
     <input type="number" step="0.01" id="stake" placeholder="Stake / Valor Apostado (R$)" required>
-    <input type="number" step="0.01" id="odds" placeholder="Odd Total do Bilhete (Ex: 1.90)" required>
+    <input type="number" step="0.01" id="odds" placeholder="Odd Total do Bilhete (Ex: 3.50)" required>
 
     <button type="submit" class="btn-add">Cadastrar Bilhete de Aposta</button>
   </form>
@@ -337,7 +346,6 @@
   <script>
     const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
-    // Gerador automático de intervalos numéricos (0.5 até MAX)
     function generateRange(prefix, min, max, step = 1, suffix = '') {
       let list = [];
       for (let i = min; i <= max; i += step) {
@@ -347,7 +355,6 @@
       return list;
     }
 
-    // Gerador de todas as categorias
     function buildAllBetanoMarkets() {
       return {
         escanteios: [
@@ -355,63 +362,43 @@
           ...generateRange("Escanteios Partida: Menos de", 0.5, 18.5, 1),
           ...generateRange("Escanteios Mandante: Mais de", 0.5, 12.5, 1),
           ...generateRange("Escanteios Visitante: Mais de", 0.5, 12.5, 1),
-          ...generateRange("Escanteios 1º Tempo: Mais de", 0.5, 9.5, 1),
-          ...generateRange("Escanteios 2º Tempo: Mais de", 0.5, 9.5, 1)
+          ...generateRange("Escanteios 1º Tempo: Mais de", 0.5, 9.5, 1)
         ],
         gols: [
           ...generateRange("Gols Partida: Mais de", 0.5, 10.5, 1),
           ...generateRange("Gols Partida: Menos de", 0.5, 10.5, 1),
           ...generateRange("Gols Mandante: Mais de", 0.5, 6.5, 1),
           ...generateRange("Gols Visitante: Mais de", 0.5, 6.5, 1),
-          ...generateRange("Gols 1º Tempo: Mais de", 0.5, 5.5, 1),
-          ...generateRange("Gols 2º Tempo: Mais de", 0.5, 5.5, 1),
-          "Ambos Marcam: Sim", "Ambos Marcam: Não",
-          "Ambos Marcam no 1º Tempo: Sim", "Ambos Marcam no 2º Tempo: Sim"
+          "Ambos Marcam: Sim", "Ambos Marcam: Não"
         ],
         cartoes: [
           ...generateRange("Cartões Partida: Mais de", 0.5, 12.5, 1),
-          ...generateRange("Cartões Partida: Menos de", 0.5, 12.5, 1),
           ...generateRange("Cartões Mandante: Mais de", 0.5, 6.5, 1),
-          ...generateRange("Cartões Visitante: Mais de", 0.5, 6.5, 1),
-          ...generateRange("Cartões 1º Tempo: Mais de", 0.5, 5.5, 1),
-          "Cartão Vermelho na Partida: Sim", "Cartão Vermelho na Partida: Não"
+          ...generateRange("Cartões Visitante: Mais de", 0.5, 6.5, 1)
         ],
         chutes_gol: [
           ...generateRange("Chutes no Gol Partida: Mais de", 0.5, 16.5, 1),
           ...generateRange("Chutes no Gol Mandante: Mais de", 0.5, 10.5, 1),
-          ...generateRange("Chutes no Gol Visitante: Mais de", 0.5, 10.5, 1),
-          ...generateRange("Chutes no Gol 1º Tempo: Mais de", 0.5, 8.5, 1)
+          ...generateRange("Chutes no Gol Visitante: Mais de", 0.5, 10.5, 1)
         ],
         finalizacoes: [
-          ...generateRange("Finalizações Totais Partida: Mais de", 4.5, 28.5, 1),
-          ...generateRange("Finalizações Mandante: Mais de", 2.5, 18.5, 1),
-          ...generateRange("Finalizações Visitante: Mais de", 2.5, 18.5, 1)
+          ...generateRange("Finalizações Totais Partida: Mais de", 4.5, 28.5, 1)
         ],
         faltas: [
-          ...generateRange("Faltas Totais Partida: Mais de", 9.5, 38.5, 1),
-          ...generateRange("Faltas Mandante: Mais de", 4.5, 20.5, 1),
-          ...generateRange("Faltas Visitante: Mais de", 4.5, 20.5, 1)
+          ...generateRange("Faltas Totais Partida: Mais de", 9.5, 38.5, 1)
         ],
         impedimentos: [
-          ...generateRange("Impedimentos Partida: Mais de", 0.5, 10.5, 1),
-          ...generateRange("Impedimentos Mandante: Mais de", 0.5, 6.5, 1),
-          ...generateRange("Impedimentos Visitante: Mais de", 0.5, 6.5, 1)
+          ...generateRange("Impedimentos Partida: Mais de", 0.5, 10.5, 1)
         ],
         jogador: [
           ...generateRange("Jogador: +", 0.5, 5.5, 1, " Chutes no Gol"),
           ...generateRange("Jogador: +", 0.5, 7.5, 1, " Finalizações Totais"),
-          ...generateRange("Jogador: +", 0.5, 3.5, 1, " Gols Marcados"),
-          ...generateRange("Jogador: +", 0.5, 3.5, 1, " Assistências"),
-          ...generateRange("Jogador: +", 0.5, 2.5, 1, " Cartões Recebidos"),
-          ...generateRange("Jogador: +", 0.5, 4.5, 1, " Faltas Cometidas")
+          ...generateRange("Jogador: +", 0.5, 3.5, 1, " Gols Marcados")
         ],
         resultado: [
           "Resultado Final: Vitória Mandante (1)", "Resultado Final: Empate (X)", "Resultado Final: Vitória Visitante (2)",
           "Dupla Chance: Mandante ou Empate (1X)", "Dupla Chance: Visitante ou Empate (X2)", "Dupla Chance: Qualquer Time (12)",
-          "Empate Anula Aposta (DNB): Mandante", "Empate Anula Aposta (DNB): Visitante",
-          "Intervalo / Final do Jogo: Mandante / Mandante", "Intervalo / Final do Jogo: Empate / Mandante",
-          ...generateRange("Handicap Asiático Mandante:", -3.5, 3.5, 0.5),
-          ...generateRange("Handicap Asiático Visitante:", -3.5, 3.5, 0.5)
+          "Empate Anula Aposta (DNB): Mandante", "Empate Anula Aposta (DNB): Visitante"
         ]
       };
     }
@@ -429,7 +416,7 @@
     function updateMarketOptions() {
       const cat = document.getElementById('marketCategory').value;
       const select = document.getElementById('marketSelect');
-      select.innerHTML = '<option value="">-- Selecione o Mercado Exacto --</option>';
+      select.innerHTML = '<option value="">-- Selecione o Mercado --</option>';
 
       if (cat && categoriasBetano[cat]) {
         categoriasBetano[cat].forEach(m => {
@@ -448,12 +435,22 @@
     }
 
     function addLegToForm() {
+      const home = document.getElementById('legHomeTeam').value.trim();
+      const away = document.getElementById('legAwayTeam').value.trim();
+      const match = (home && away) ? `${home} x ${away}` : (home || away || 'Jogo Genérico');
+
       const selectVal = document.getElementById('marketSelect').value;
       const customVal = document.getElementById('customMarketInput').value.trim();
-      const val = selectVal || customVal;
+      const market = selectVal || customVal;
 
-      if (val) {
-        tempLegs.push({ id: Date.now() + Math.random(), name: val, status: 'pending' });
+      if (market) {
+        tempLegs.push({
+          id: Date.now() + Math.random(),
+          match: match,
+          name: market,
+          status: 'pending'
+        });
+
         document.getElementById('marketSelect').value = '';
         document.getElementById('customMarketInput').value = '';
         renderBuilder();
@@ -469,7 +466,10 @@
       const container = document.getElementById('builderList');
       container.innerHTML = tempLegs.map(l => `
         <div class="builder-item">
-          <span>📌 ${l.name}</span>
+          <div class="builder-item-info">
+            <span class="builder-item-match">⚽ ${l.match}</span>
+            <span>📌 ${l.name}</span>
+          </div>
           <button type="button" style="background:none; border:none; color:var(--red); cursor:pointer; font-weight:bold;" onclick="removeLegFromForm(${l.id})">✖</button>
         </div>
       `).join('');
@@ -479,26 +479,29 @@
       e.preventDefault();
       
       const dateVal = document.getElementById('betDate').value;
-      const home = document.getElementById('homeTeam').value.trim();
-      const away = document.getElementById('awayTeam').value.trim();
-      const match = (home && away) ? `${home} x ${away}` : (home || away);
-      
       const stake = parseFloat(document.getElementById('stake').value);
       const odds = parseFloat(document.getElementById('odds').value);
 
       if (tempLegs.length === 0) {
-        const customVal = document.getElementById('customMarketInput').value.trim() || 'Aposta Simples';
-        tempLegs.push({ id: Date.now(), name: customVal, status: 'pending' });
+        alert("Adicione pelo menos uma seleção/jogo ao bilhete!");
+        return;
       }
+
+      // Define título automático do bilhete (Simples, Dupla, Tripla ou Múltipla)
+      let betTypeTitle = "Aposta Simples";
+      if (tempLegs.length === 2) betTypeTitle = "Bilhete Duplo (2 Seleções)";
+      else if (tempLegs.length === 3) betTypeTitle = "Bilhete Triplo (3 Seleções)";
+      else if (tempLegs.length > 3) betTypeTitle = `Múltipla (${tempLegs.length} Seleções)`;
+      else if (tempLegs.length === 1) betTypeTitle = tempLegs[0].match;
 
       bets.unshift({
         id: Date.now(),
         date: dateVal,
-        match,
+        title: betTypeTitle,
         stake,
         odds,
         status: 'pending',
-        legs: tempLegs
+        legs: [...tempLegs]
       });
 
       tempLegs = [];
@@ -614,7 +617,10 @@
 
         const legsHtml = (b.legs || []).map(l => `
           <div class="leg-item ${l.status}">
-            <span>${l.status === 'green' ? '✅' : l.status === 'red' ? '❌' : '⏳'} ${l.name}</span>
+            <div class="leg-details">
+              <span class="leg-match-title">⚽ ${l.match}</span>
+              <span>${l.status === 'green' ? '✅' : l.status === 'red' ? '❌' : '⏳'} ${l.name}</span>
+            </div>
             <div class="leg-actions">
               <button class="btn-mini-green" onclick="toggleLegStatus(${b.id}, ${l.id}, 'green')">🟢</button>
               <button class="btn-mini-red" onclick="toggleLegStatus(${b.id}, ${l.id}, 'red')">🔴</button>
@@ -631,7 +637,7 @@
           <div class="bet-header">
             <div>
               <div class="bet-date">📅 ${formatDateFormatted(b.date)}</div>
-              <div class="bet-title">${b.match}</div>
+              <div class="bet-title">${b.title}</div>
             </div>
             <div class="bet-financial">
               <strong>R$ ${b.stake.toFixed(2)}</strong> @ <strong>${b.odds.toFixed(2)}</strong>
@@ -705,3 +711,4 @@
   </script>
 </body>
 </html>
+
