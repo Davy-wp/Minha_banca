@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestor de Banca Betano Pro - Com Edição de Bilhetes</title>
+  <title>Gestor de Banca Betano Pro - Agrupado por Dias</title>
   <style>
     :root {
       --bg: #121214;
@@ -159,27 +159,49 @@
 
     .btn-filter.active { background: var(--green); color: #fff; border-color: var(--green); }
 
+    /* Agrupamento por Dia */
+    .day-group {
+      background: rgba(32, 32, 36, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .day-profit { font-size: 0.85rem; font-weight: bold; }
+
     .bet-item {
       background: var(--card-bg);
-      padding: 14px;
-      border-radius: 8px;
-      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
       border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .bet-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 6px;
     }
 
-    .bet-date { font-size: 0.75rem; color: var(--subtext); font-weight: bold; }
-    .bet-title { font-size: 1.05rem; font-weight: bold; color: #fff; margin-top: 2px; }
+    .bet-title { font-size: 0.95rem; font-weight: bold; color: #fff; }
     .bet-financial { font-size: 0.85rem; color: var(--subtext); text-align: right; }
 
     .legs-list {
@@ -190,12 +212,12 @@
 
     .leg-item {
       background: #18181b;
-      padding: 8px 10px;
-      border-radius: 6px;
+      padding: 6px 8px;
+      border-radius: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       border-left: 3px solid var(--border);
     }
 
@@ -212,22 +234,22 @@
     .leg-item.pending { border-left-color: var(--yellow); }
 
     .leg-actions { display: flex; gap: 4px; }
-    .btn-mini-green { background: var(--green); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
-    .btn-mini-red { background: var(--red); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .btn-mini-green { background: var(--green); color: #fff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
+    .btn-mini-red { background: var(--red); color: #fff; border: none; padding: 3px 6px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; }
 
     .batch-actions {
       display: flex;
       gap: 6px;
-      margin-top: 4px;
-      padding-top: 6px;
+      margin-top: 2px;
+      padding-top: 4px;
       border-top: 1px dashed var(--border);
     }
 
     .btn-batch-green {
-      background: rgba(0, 180, 126, 0.2);
+      background: rgba(0, 180, 126, 0.15);
       color: var(--green-text);
       border: 1px solid var(--green);
-      padding: 6px 10px;
+      padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.75rem;
@@ -236,10 +258,10 @@
     }
 
     .btn-batch-red {
-      background: rgba(247, 90, 104, 0.2);
+      background: rgba(247, 90, 104, 0.15);
       color: var(--red);
       border: 1px solid var(--red);
-      padding: 6px 10px;
+      padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.75rem;
@@ -251,25 +273,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 5px;
+      padding-top: 4px;
     }
 
     .footer-buttons { display: flex; gap: 6px; }
 
-    .status-badge { font-size: 0.85rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+    .status-badge { font-size: 0.8rem; font-weight: bold; padding: 3px 6px; border-radius: 4px; }
     .badge-green { background: rgba(0, 180, 126, 0.15); color: var(--green-text); }
     .badge-red { background: rgba(247, 90, 104, 0.15); color: var(--red); }
     .badge-pending { background: rgba(225, 161, 0, 0.15); color: var(--yellow); }
 
-    .btn-edit { background: #29292e; color: #fff; border: 1px solid var(--border); padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
-    .btn-del { background: #29292e; color: #a8a8b3; border: 1px solid var(--border); padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+    .btn-edit { background: #29292e; color: #fff; border: 1px solid var(--border); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .btn-del { background: #29292e; color: #a8a8b3; border: 1px solid var(--border); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
     .green-text { color: var(--green-text); font-weight: bold; }
     .red-text { color: var(--red); font-weight: bold; }
 
     .backup-actions { display: flex; gap: 8px; margin-top: 5px; }
     .btn-sec { background: #29292e; color: #fff; border: none; padding: 8px; font-size: 0.8rem; cursor: pointer; }
 
-    /* Estilos da Janela Modal de Edição */
+    /* Modal Overlay de Edição */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -361,7 +383,7 @@
         </select>
       </div>
 
-      <input type="text" id="customMarketInput" placeholder="Ou digite o mercado manualmente (Ex: Cristiano Ronaldo 1+ Chute)..." autocomplete="off">
+      <input type="text" id="customMarketInput" placeholder="Ou digite o mercado manualmente..." autocomplete="off">
 
       <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Seleção (Múltipla / Tripla)</button>
       <div id="builderList" class="selections-builder"></div>
@@ -382,7 +404,7 @@
 
   <div id="betsList"></div>
 
-  <!-- Modal Overlay para Edição de Bilhete -->
+  <!-- Modal Overlay para Edição -->
   <div id="editModal" class="modal-overlay">
     <div class="modal-content">
       <h3 style="margin:0; font-size:1.1rem;">✏️ Editar Bilhete de Aposta</h3>
@@ -476,7 +498,6 @@
     let currentFilter = 'all';
     let tempLegs = [];
 
-    // Controle de Edição
     let editingBetId = null;
     let editLegs = [];
 
@@ -580,7 +601,6 @@
       document.getElementById('betDate').valueAsDate = new Date();
     });
 
-    // Funções do Modal de Edição
     function openEditModal(id) {
       const bet = bets.find(b => b.id === id);
       if (!bet) return;
@@ -737,77 +757,112 @@
       let greens = 0;
       let finishedCount = 0;
 
+      // Calcular Métricas Globais da Banca
       bets.forEach(b => {
-        let profit = 0;
         if (b.status === 'green') {
-          profit = (b.stake * b.odds) - b.stake;
-          totalProfit += profit;
+          totalProfit += (b.stake * b.odds) - b.stake;
           totalStaked += b.stake;
           greens++;
           finishedCount++;
         } else if (b.status === 'red') {
-          profit = -b.stake;
-          totalProfit += profit;
+          totalProfit -= b.stake;
           totalStaked += b.stake;
           finishedCount++;
         }
+      });
 
-        if (currentFilter !== 'all' && b.status !== currentFilter) {
-          return;
-        }
+      // Agrupar Apostas por Data
+      const groupedBets = {};
+      bets.forEach(b => {
+        if (currentFilter !== 'all' && b.status !== currentFilter) return;
+        if (!groupedBets[b.date]) groupedBets[b.date] = [];
+        groupedBets[b.date].push(b);
+      });
 
-        const div = document.createElement('div');
-        div.className = 'bet-item';
+      // Ordenar as datas da mais recente para a mais antiga
+      const sortedDates = Object.keys(groupedBets).sort((a, b) => new Date(b) - new Date(a));
 
-        const legsHtml = (b.legs || []).map(l => `
-          <div class="leg-item ${l.status}">
-            <div class="leg-details">
-              <span class="leg-match-title">⚽ ${l.match}</span>
-              <span>${l.status === 'green' ? '✅' : l.status === 'red' ? '❌' : '⏳'} ${l.name}</span>
-            </div>
-            <div class="leg-actions">
-              <button class="btn-mini-green" onclick="toggleLegStatus(${b.id}, ${l.id}, 'green')">🟢</button>
-              <button class="btn-mini-red" onclick="toggleLegStatus(${b.id}, ${l.id}, 'red')">🔴</button>
-            </div>
-          </div>
-        `).join('');
+      sortedDates.forEach(dateKey => {
+        const dayBets = groupedBets[dateKey];
+        let dayProfit = 0;
 
-        let badgeClass = 'badge-pending';
-        let badgeText = 'PENDENTE ⏳';
-        if (b.status === 'green') { badgeClass = 'badge-green'; badgeText = 'GREEN 🟢'; }
-        if (b.status === 'red') { badgeClass = 'badge-red'; badgeText = 'RED 🔴'; }
+        dayBets.forEach(b => {
+          if (b.status === 'green') dayProfit += (b.stake * b.odds) - b.stake;
+          else if (b.status === 'red') dayProfit -= b.stake;
+        });
 
-        div.innerHTML = `
-          <div class="bet-header">
-            <div>
-              <div class="bet-date">📅 ${formatDateFormatted(b.date)}</div>
-              <div class="bet-title">${b.title}</div>
-            </div>
-            <div class="bet-financial">
-              <strong>R$ ${b.stake.toFixed(2)}</strong> @ <strong>${b.odds.toFixed(2)}</strong>
-              <div>${b.status !== 'pending' ? `<span class="${profit >= 0 ? 'green-text' : 'red-text'}">${profit > 0 ? '+' : ''}R$ ${profit.toFixed(2)}</span>` : ''}</div>
-            </div>
-          </div>
+        const dayGroup = document.createElement('div');
+        dayGroup.className = 'day-group';
 
-          <div class="legs-list">
-            ${legsHtml}
-          </div>
-
-          <div class="batch-actions">
-            <button class="btn-batch-green" onclick="resolveAllLegs(${b.id}, 'green')">🟢 Green All</button>
-            <button class="btn-batch-red" onclick="resolveAllLegs(${b.id}, 'red')">🔴 Red All</button>
-          </div>
-
-          <div class="bet-footer">
-            <span class="status-badge ${badgeClass}">${badgeText}</span>
-            <div class="footer-buttons">
-              <button class="btn-edit" onclick="openEditModal(${b.id})" title="Editar Bilhete">✏️ Editar</button>
-              <button class="btn-del" onclick="deleteBet(${b.id})" title="Excluir Bilhete">🗑️ Excluir</button>
-            </div>
-          </div>
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'day-header';
+        dayHeader.innerHTML = `
+          <span>📅 ${formatDateFormatted(dateKey)}</span>
+          <span class="day-profit ${dayProfit >= 0 ? 'green-text' : 'red-text'}">
+            Dia: ${dayProfit > 0 ? '+' : ''}R$ ${dayProfit.toFixed(2)}
+          </span>
         `;
+        dayGroup.appendChild(dayHeader);
 
-        list.appendChild(div);
+        dayBets.forEach(b => {
+          let profit = 0;
+          if (b.status === 'green') profit = (b.stake * b.odds) - b.stake;
+          else if (b.status === 'red') profit = -b.stake;
+
+          const div = document.createElement('div');
+          div.className = 'bet-item';
+
+          const legsHtml = (b.legs || []).map(l => `
+            <div class="leg-item ${l.status}">
+              <div class="leg-details">
+                <span class="leg-match-title">⚽ ${l.match}</span>
+                <span>${l.status === 'green' ? '✅' : l.status === 'red' ? '❌' : '⏳'} ${l.name}</span>
+              </div>
+              <div class="leg-actions">
+                <button class="btn-mini-green" onclick="toggleLegStatus(${b.id}, ${l.id}, 'green')">🟢</button>
+                <button class="btn-mini-red" onclick="toggleLegStatus(${b.id}, ${l.id}, 'red')">🔴</button>
+              </div>
+            </div>
+          `).join('');
+
+          let badgeClass = 'badge-pending';
+          let badgeText = 'PENDENTE ⏳';
+          if (b.status === 'green') { badgeClass = 'badge-green'; badgeText = 'GREEN 🟢'; }
+          if (b.status === 'red') { badgeClass = 'badge-red'; badgeText = 'RED 🔴'; }
+
+          div.innerHTML = `
+            <div class="bet-header">
+              <div>
+                <div class="bet-title">${b.title}</div>
+              </div>
+              <div class="bet-financial">
+                <strong>R$ ${b.stake.toFixed(2)}</strong> @ <strong>${b.odds.toFixed(2)}</strong>
+                <div>${b.status !== 'pending' ? `<span class="${profit >= 0 ? 'green-text' : 'red-text'}">${profit > 0 ? '+' : ''}R$ ${profit.toFixed(2)}</span>` : ''}</div>
+              </div>
+            </div>
+
+            <div class="legs-list">
+              ${legsHtml}
+            </div>
+
+            <div class="batch-actions">
+              <button class="btn-batch-green" onclick="resolveAllLegs(${b.id}, 'green')">🟢 Green All</button>
+              <button class="btn-batch-red" onclick="resolveAllLegs(${b.id}, 'red')">🔴 Red All</button>
+            </div>
+
+            <div class="bet-footer">
+              <span class="status-badge ${badgeClass}">${badgeText}</span>
+              <div class="footer-buttons">
+                <button class="btn-edit" onclick="openEditModal(${b.id})" title="Editar Bilhete">✏️ Editar</button>
+                <button class="btn-del" onclick="deleteBet(${b.id})" title="Excluir Bilhete">🗑️ Excluir</button>
+              </div>
+            </div>
+          `;
+
+          dayGroup.appendChild(div);
+        });
+
+        list.appendChild(dayGroup);
       });
 
       const currentBank = initialBank + totalProfit;
@@ -858,3 +913,4 @@
   </script>
 </body>
 </html>
+
