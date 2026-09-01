@@ -73,6 +73,24 @@
       gap: 12px;
     }
 
+    /* Campos de Confronto (Time 1 x Time 2) */
+    .match-inputs {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .match-inputs input {
+      flex: 1;
+    }
+
+    .match-vs {
+      font-weight: bold;
+      color: var(--subtext);
+      font-size: 0.9rem;
+      padding: 0 2px;
+    }
+
     input, select, button {
       padding: 10px;
       border-radius: 6px;
@@ -206,8 +224,9 @@
 </head>
 <body>
 
-  <h2>📊 Gestor de Banca Betano</h2>
+  <h2>📊 Gestor de Banca Betano Pro</h2>
 
+  <!-- Dashboard -->
   <div class="dashboard">
     <div class="card"><h4>BANCA ATUAL</h4><p id="currentBank">R$ 0.00</p></div>
     <div class="card"><h4>LUCRO LÍQUIDO</h4><p id="totalProfit">R$ 0.00</p></div>
@@ -215,6 +234,7 @@
     <div class="card"><h4>YIELD (RETORNO)</h4><p id="yield">0%</p></div>
   </div>
 
+  <!-- Configuração de Banca -->
   <div class="bank-setup">
     <div class="bank-row">
       <label for="initialBankInput">Banca Inicial:</label>
@@ -227,58 +247,138 @@
     </div>
   </div>
 
+  <!-- Cadastro de Aposta -->
   <form id="betForm">
     <input type="date" id="betDate" required>
 
-    <input type="text" id="match" list="teamsList" placeholder="Digite o Confronto (Ex: Al-Hilal x Al-Nassr)" required autocomplete="off">
+    <!-- Seleção dos Dois Times (Casa x Visitante) com Autocomplete Separado -->
+    <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Confronto (Selecione ou Pesquise os Dois Times):</span>
+    <div class="match-inputs">
+      <input type="text" id="homeTeam" list="teamsList" placeholder="Mandante (Ex: Al-Hilal)" required autocomplete="off">
+      <span class="match-vs">x</span>
+      <input type="text" id="awayTeam" list="teamsList" placeholder="Visitante (Ex: Al-Ahly)" required autocomplete="off">
+    </div>
+
+    <!-- Lista Completa de Times -->
     <datalist id="teamsList">
-      <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
-      <option value="Fluminense"><option value="Vasco da Gama"><option value="Botafogo"><option value="Grêmio">
-      <option value="Internacional"><option value="Atlético-MG"><option value="Cruzeiro"><option value="Bahia">
-      <option value="Fortaleza"><option value="Athletico-PR"><option value="Santos"><option value="Ceará">
-      <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Liverpool">
-      <option value="Arsenal"><option value="Bayern de Munique"><option value="PSG"><option value="Al-Hilal"><option value="Al-Nassr">
+      <!-- Liga Saudita / Ásia -->
+      <option value="Al-Hilal">
+      <option value="Al-Ahly">
+      <option value="Al-Nassr">
+      <option value="Al-Ittihad">
+      <option value="Al-Ettifaq">
+      <option value="Al-Shabab">
+      <option value="Al-Taawoun">
+      <option value="Al-Fateh">
+      <option value="Al-Feiha">
+      <option value="Damac FC">
+
+      <!-- Brasil -->
+      <option value="Flamengo">
+      <option value="Palmeiras">
+      <option value="São Paulo">
+      <option value="Corinthians">
+      <option value="Fluminense">
+      <option value="Vasco da Gama">
+      <option value="Botafogo">
+      <option value="Grêmio">
+      <option value="Internacional">
+      <option value="Atlético-MG">
+      <option value="Cruzeiro">
+      <option value="Bahia">
+      <option value="Fortaleza">
+      <option value="Athletico-PR">
+      <option value="Santos">
+      <option value="Ceará">
+      <option value="Sport Recife">
+      <option value="Vitória">
+      <option value="Red Bull Bragantino">
+      <option value="Juventude">
+      <option value="Criciúma">
+      <option value="Goiás">
+      <option value="Coritiba">
+
+      <!-- Europa / Grandes Clubes -->
+      <option value="Real Madrid">
+      <option value="Barcelona">
+      <option value="Atlético de Madrid">
+      <option value="Manchester City">
+      <option value="Liverpool">
+      <option value="Arsenal">
+      <option value="Manchester United">
+      <option value="Chelsea">
+      <option value="Tottenham">
+      <option value="Bayern de Munique">
+      <option value="Borussia Dortmund">
+      <option value="Bayer Leverkusen">
+      <option value="Paris Saint-Germain (PSG)">
+      <option value="Juventus">
+      <option value="Inter de Milão">
+      <option value="AC Milan">
+      <option value="Napoli">
+      <option value="Roma">
+      <option value="Benfica">
+      <option value="Porto">
+      <option value="Sporting CP">
+
+      <!-- América do Sul -->
+      <option value="Boca Juniors">
+      <option value="River Plate">
+      <option value="Racing">
+      <option value="Independiente">
+      <option value="Peñarol">
+      <option value="Nacional">
+      <option value="Colo-Colo">
+      <option value="Liga de Quito">
+      <option value="Independiente del Valle">
     </datalist>
 
+    <!-- Adicionador de Múltiplas Seleções ao Bilhete -->
     <div class="add-selection-box">
-      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Adicionar Seleções ao Bilhete:</span>
+      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Adicionar Seleções ao Bilhete (Adicione quantas quiser):</span>
       
-      <input type="text" id="marketInput" list="marketsList" placeholder="Selecione ou Escreva a Seleção" autocomplete="off">
+      <input type="text" id="marketInput" list="marketsList" placeholder="Digite/Escolha (Ex: +3.5 escanteios Al-Hilal)" autocomplete="off">
       <datalist id="marketsList">
-        <option value="Escanteios: Mais de 2.5 (Time Mandante)">
-        <option value="Escanteios: Mais de 3.5 (Time Mandante)">
-        <option value="Escanteios: Mais de 4.5 (Time Mandante)">
-        <option value="Escanteios: Mais de 2.5 (Time Visitante)">
-        <option value="Escanteios: Mais de 3.5 (Time Visitante)">
-        <option value="Escanteios: Mais de 4.5 (Time Visitante)">
-        <option value="Escanteios: Mais de 7.5 (Total do Jogo)">
-        <option value="Escanteios: Mais de 8.5 (Total do Jogo)">
-        <option value="Escanteios: Mais de 9.5 (Total do Jogo)">
-        <option value="Escanteios: Mais de 10.5 (Total do Jogo)">
-        <option value="Chutes no Gol: +0.5 Chutes no Gol (Jogador)">
+        <!-- Escanteios -->
+        <option value="Escanteios: Mais de 2.5 do Mandante">
+        <option value="Escanteios: Mais de 3.5 do Mandante">
+        <option value="Escanteios: Mais de 4.5 do Mandante">
+        <option value="Escanteios: Mais de 2.5 do Visitante">
+        <option value="Escanteios: Mais de 3.5 do Visitante">
+        <option value="Escanteios: Mais de 4.5 do Visitante">
+        <option value="Escanteios: Mais de 7.5 na Partida">
+        <option value="Escanteios: Mais de 8.5 na Partida">
+        <option value="Escanteios: Mais de 9.5 na Partida">
+        <option value="Escanteios: Mais de 10.5 na Partida">
+
+        <!-- Chutes e Finalizações -->
+        <option value="Chutes no Gol: +0.5 Chute no Gol (Jogador)">
         <option value="Chutes no Gol: +1.5 Chutes no Gol (Jogador)">
         <option value="Finalizações: +1.5 Chutes Totais (Jogador)">
         <option value="Finalizações: +2.5 Chutes Totais (Jogador)">
-        <option value="Chutes no Gol: +3.5 Chutes no Gol (Time Mandante)">
-        <option value="Chutes no Gol: +3.5 Chutes no Gol (Time Visitante)">
+        <option value="Chutes no Gol: Mais de 3.5 do Mandante">
+        <option value="Chutes no Gol: Mais de 3.5 do Visitante">
+
+        <!-- Gols e Ambas Marcam -->
         <option value="Gols: Ambas as Equipes Marcam (Sim)">
-        <option value="Gols: Ambas as Equipes Marcam (Não)">
         <option value="Gols: Mais de 1.5 Gols na Partida">
         <option value="Gols: Mais de 2.5 Gols na Partida">
         <option value="Gols: Menos de 2.5 Gols na Partida">
-        <option value="Gols: Jogador para Marcar a Qualquer Momento">
+        <option value="Gols: Jogador para Marcar Gol">
         <option value="Gols: Jogador para Dar Assistência">
-        <option value="Dupla Chance: Mandante ou Empate (1X)">
-        <option value="Dupla Chance: Visitante ou Empate (X2)">
-        <option value="Dupla Chance: Qualquer Time Vence (12)">
+
+        <!-- Dupla Chance e Outros -->
+        <option value="Chance Dupla: Mandante ou Empate (1X)">
+        <option value="Chance Dupla: Visitante ou Empate (X2)">
+        <option value="Chance Dupla: Qualquer Time Vence (12)">
         <option value="Resultado Final: Vitória do Mandante">
         <option value="Resultado Final: Vitória do Visitante">
-        <option value="Cartões: Mais de 3.5 Cartões Amarelos">
+        <option value="Cartões: Mais de 3.5 Cartões na Partida">
         <option value="Cartões: Jogador para Receber Cartão">
         <option value="Empate Anula Aposta (DNB)">
       </datalist>
 
-      <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Esta Seleção ao Bilhete</button>
+      <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Seleção ao Bilhete</button>
       <div id="builderList" class="selections-builder"></div>
     </div>
 
@@ -288,6 +388,7 @@
     <button type="submit" class="btn-add">Cadastrar Bilhete de Aposta</button>
   </form>
 
+  <!-- Filtros -->
   <div class="filters">
     <button class="btn-filter active" onclick="setFilter('all', this)">Todas</button>
     <button class="btn-filter" onclick="setFilter('pending', this)">Pendentes</button>
@@ -343,7 +444,10 @@
       e.preventDefault();
       
       const dateVal = document.getElementById('betDate').value;
-      const match = document.getElementById('match').value;
+      const home = document.getElementById('homeTeam').value.trim();
+      const away = document.getElementById('awayTeam').value.trim();
+      const match = (home && away) ? `${home} x ${away}` : (home || away);
+      
       const stake = parseFloat(document.getElementById('stake').value);
       const odds = parseFloat(document.getElementById('odds').value);
 
@@ -393,7 +497,7 @@
     }
 
     function deleteBet(id) {
-      if (confirm("Deseja apagar este bilhete especificamente?")) {
+      if (confirm("Deseja apagar este bilhete de aposta?")) {
         bets = bets.filter(b => b.id !== id);
         saveAndUpdate();
       }
@@ -549,5 +653,6 @@
   </script>
 </body>
 </html>
+
 
             
