@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestor de Banca Betano Pro</title>
+  <title>Gestor de Banca Betano Pro - Ultra Market Edition</title>
   <style>
     :root {
       --bg: #121214;
@@ -107,6 +107,7 @@
 
     .category-grid {
       display: flex;
+      flex-direction: column;
       gap: 6px;
     }
 
@@ -198,7 +199,6 @@
     .btn-mini-green { background: var(--green); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
     .btn-mini-red { background: var(--red); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
 
-    /* Botões de Resolução Global (Green All / Red All) */
     .batch-actions {
       display: flex;
       gap: 6px;
@@ -255,7 +255,6 @@
 
   <h2>📊 Gestor de Banca Betano Pro</h2>
 
-  <!-- Dashboard -->
   <div class="dashboard">
     <div class="card"><h4>BANCA ATUAL</h4><p id="currentBank">R$ 0.00</p></div>
     <div class="card"><h4>LUCRO LÍQUIDO</h4><p id="totalProfit">R$ 0.00</p></div>
@@ -263,7 +262,6 @@
     <div class="card"><h4>YIELD (RETORNO)</h4><p id="yield">0%</p></div>
   </div>
 
-  <!-- Configuração de Banca -->
   <div class="bank-setup">
     <div class="bank-row">
       <label for="initialBankInput">Banca Inicial:</label>
@@ -276,7 +274,6 @@
     </div>
   </div>
 
-  <!-- Cadastro de Aposta -->
   <form id="betForm">
     <input type="date" id="betDate" required>
 
@@ -291,31 +288,32 @@
       <option value="Al-Hilal"><option value="Al-Ahly"><option value="Al-Nassr"><option value="Al-Ittihad">
       <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
       <option value="Fluminense"><option value="Botafogo"><option value="Grêmio"><option value="Internacional">
-      <option value="Atlético-MG"><option value="Cruzeiro"><option value="Sport Recife"><option value="Ceará">
       <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Bayern de Munique">
-      <option value="PSG"><option value="Boca Juniors"><option value="River Plate">
     </datalist>
 
-    <!-- Adicionador Categorizado -->
     <div class="add-selection-box">
-      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Mercados por Categoria (Betano):</span>
+      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Mercados Completos Betano:</span>
       
       <div class="category-grid">
-        <select id="marketCategory" onchange="updateMarketOptions()" style="flex: 1;">
-          <option value="">-- Categoria --</option>
-          <option value="escanteios">🚩 Escanteios</option>
-          <option value="gols">⚽ Gols & AM</option>
-          <option value="cartoes">🟨 Cartões & Faltas</option>
-          <option value="chutes">🎯 Chutes & Finalizações</option>
-          <option value="resultado">🏆 Resultado & Dupla Chance</option>
+        <select id="marketCategory" onchange="updateMarketOptions()">
+          <option value="">-- Escolha a Categoria --</option>
+          <option value="escanteios">🚩 Escanteios (Todos de 0.5 a 18.5)</option>
+          <option value="gols">⚽ Gols & Ambas Marcam (0.5 a 10.5)</option>
+          <option value="cartoes">🟨 Cartões (0.5 a 12.5)</option>
+          <option value="chutes_gol">🎯 Chutes no Gol (0.5 a 15.5)</option>
+          <option value="finalizacoes">🚀 Finalizações Totais (0.5 a 25.5)</option>
+          <option value="faltas">⚠️ Faltas (5.5 a 35.5)</option>
+          <option value="impedimentos">🚩 Impedimentos (0.5 a 10.5)</option>
+          <option value="jogador">👤 Mercados de Jogadores (Chutes/Gols)</option>
+          <option value="resultado">🏆 Resultado, Dupla Chance & Handicap</option>
         </select>
 
-        <select id="marketSelect" style="flex: 1.5;">
-          <option value="">Selecione uma categoria...</option>
+        <select id="marketSelect">
+          <option value="">Selecione uma categoria acima...</option>
         </select>
       </div>
 
-      <input type="text" id="customMarketInput" placeholder="Ou digite manualmente se preferir..." autocomplete="off">
+      <input type="text" id="customMarketInput" placeholder="Ou digite o nome exato do jogador/mercado livre..." autocomplete="off">
 
       <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Seleção ao Bilhete</button>
       <div id="builderList" class="selections-builder"></div>
@@ -327,7 +325,6 @@
     <button type="submit" class="btn-add">Cadastrar Bilhete de Aposta</button>
   </form>
 
-  <!-- Filtros -->
   <div class="filters">
     <button class="btn-filter active" onclick="setFilter('all', this)">Todas</button>
     <button class="btn-filter" onclick="setFilter('pending', this)">Pendentes</button>
@@ -340,33 +337,86 @@
   <script>
     const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
-    const categoriasBetano = {
-      escanteios: [
-        "Escanteios: Mais de 7.5 na Partida", "Escanteios: Mais de 8.5 na Partida", "Escanteios: Mais de 9.5 na Partida",
-        "Escanteios: Mais de 10.5 na Partida", "Escanteios: Mais de 3.5 do Mandante", "Escanteios: Mais de 4.5 do Mandante",
-        "Escanteios: Mais de 3.5 do Visitante", "Escanteios: Mais de 4.5 do Visitante"
-      ],
-      gols: [
-        "Gols: Mais de 0.5 na Partida", "Gols: Mais de 1.5 na Partida", "Gols: Mais de 2.5 na Partida",
-        "Gols: Ambos Marcam (Sim)", "Gols: Ambos Marcam (Não)", "Gols: Mais de 0.5 Gol Mandante",
-        "Gols: Mais de 0.5 Gol Visitante", "Gols: Jogador para Marcar"
-      ],
-      cartoes: [
-        "Cartões: Mais de 3.5 Cartões na Partida", "Cartões: Mais de 4.5 Cartões na Partida", "Cartões: Mais de 5.5 Cartões na Partida",
-        "Cartões: Ambas as Equipes Recebem 1+ Cartão", "Cartões: Mais de 1.5 Cartões Mandante", "Cartões: Mais de 1.5 Cartões Visitante",
-        "Cartões: Jogador para Receber Cartão"
-      ],
-      chutes: [
-        "Chutes no Gol: Mais de 7.5 na Partida", "Chutes no Gol: Mais de 9.5 na Partida", "Chutes no Gol: Mais de 3.5 Mandante",
-        "Chutes no Gol: Mais de 4.5 Mandante", "Chutes no Gol: Mais de 3.5 Visitante", "Chutes no Gol: +0.5 Chute no Gol (Jogador)",
-        "Chutes no Gol: +1.5 Chutes no Gol (Jogador)", "Finalizações: +1.5 Chutes Totais (Jogador)"
-      ],
-      resultado: [
-        "Chance Dupla: Mandante ou Empate (1X)", "Chance Dupla: Visitante ou Empate (X2)", "Chance Dupla: Qualquer Time Vence (12)",
-        "Resultado Final: Vitória do Mandante", "Resultado Final: Vitória do Visitante", "Empate Anula Aposta (DNB - Mandante)",
-        "Empate Anula Aposta (DNB - Visitante)"
-      ]
-    };
+    // Gerador automático de intervalos numéricos (0.5 até MAX)
+    function generateRange(prefix, min, max, step = 1, suffix = '') {
+      let list = [];
+      for (let i = min; i <= max; i += step) {
+        let val = (i % 1 === 0) ? i : i.toFixed(1);
+        list.push(`${prefix} ${val}${suffix}`);
+      }
+      return list;
+    }
+
+    // Gerador de todas as categorias
+    function buildAllBetanoMarkets() {
+      return {
+        escanteios: [
+          ...generateRange("Escanteios Partida: Mais de", 0.5, 18.5, 1),
+          ...generateRange("Escanteios Partida: Menos de", 0.5, 18.5, 1),
+          ...generateRange("Escanteios Mandante: Mais de", 0.5, 12.5, 1),
+          ...generateRange("Escanteios Visitante: Mais de", 0.5, 12.5, 1),
+          ...generateRange("Escanteios 1º Tempo: Mais de", 0.5, 9.5, 1),
+          ...generateRange("Escanteios 2º Tempo: Mais de", 0.5, 9.5, 1)
+        ],
+        gols: [
+          ...generateRange("Gols Partida: Mais de", 0.5, 10.5, 1),
+          ...generateRange("Gols Partida: Menos de", 0.5, 10.5, 1),
+          ...generateRange("Gols Mandante: Mais de", 0.5, 6.5, 1),
+          ...generateRange("Gols Visitante: Mais de", 0.5, 6.5, 1),
+          ...generateRange("Gols 1º Tempo: Mais de", 0.5, 5.5, 1),
+          ...generateRange("Gols 2º Tempo: Mais de", 0.5, 5.5, 1),
+          "Ambos Marcam: Sim", "Ambos Marcam: Não",
+          "Ambos Marcam no 1º Tempo: Sim", "Ambos Marcam no 2º Tempo: Sim"
+        ],
+        cartoes: [
+          ...generateRange("Cartões Partida: Mais de", 0.5, 12.5, 1),
+          ...generateRange("Cartões Partida: Menos de", 0.5, 12.5, 1),
+          ...generateRange("Cartões Mandante: Mais de", 0.5, 6.5, 1),
+          ...generateRange("Cartões Visitante: Mais de", 0.5, 6.5, 1),
+          ...generateRange("Cartões 1º Tempo: Mais de", 0.5, 5.5, 1),
+          "Cartão Vermelho na Partida: Sim", "Cartão Vermelho na Partida: Não"
+        ],
+        chutes_gol: [
+          ...generateRange("Chutes no Gol Partida: Mais de", 0.5, 16.5, 1),
+          ...generateRange("Chutes no Gol Mandante: Mais de", 0.5, 10.5, 1),
+          ...generateRange("Chutes no Gol Visitante: Mais de", 0.5, 10.5, 1),
+          ...generateRange("Chutes no Gol 1º Tempo: Mais de", 0.5, 8.5, 1)
+        ],
+        finalizacoes: [
+          ...generateRange("Finalizações Totais Partida: Mais de", 4.5, 28.5, 1),
+          ...generateRange("Finalizações Mandante: Mais de", 2.5, 18.5, 1),
+          ...generateRange("Finalizações Visitante: Mais de", 2.5, 18.5, 1)
+        ],
+        faltas: [
+          ...generateRange("Faltas Totais Partida: Mais de", 9.5, 38.5, 1),
+          ...generateRange("Faltas Mandante: Mais de", 4.5, 20.5, 1),
+          ...generateRange("Faltas Visitante: Mais de", 4.5, 20.5, 1)
+        ],
+        impedimentos: [
+          ...generateRange("Impedimentos Partida: Mais de", 0.5, 10.5, 1),
+          ...generateRange("Impedimentos Mandante: Mais de", 0.5, 6.5, 1),
+          ...generateRange("Impedimentos Visitante: Mais de", 0.5, 6.5, 1)
+        ],
+        jogador: [
+          ...generateRange("Jogador: +", 0.5, 5.5, 1, " Chutes no Gol"),
+          ...generateRange("Jogador: +", 0.5, 7.5, 1, " Finalizações Totais"),
+          ...generateRange("Jogador: +", 0.5, 3.5, 1, " Gols Marcados"),
+          ...generateRange("Jogador: +", 0.5, 3.5, 1, " Assistências"),
+          ...generateRange("Jogador: +", 0.5, 2.5, 1, " Cartões Recebidos"),
+          ...generateRange("Jogador: +", 0.5, 4.5, 1, " Faltas Cometidas")
+        ],
+        resultado: [
+          "Resultado Final: Vitória Mandante (1)", "Resultado Final: Empate (X)", "Resultado Final: Vitória Visitante (2)",
+          "Dupla Chance: Mandante ou Empate (1X)", "Dupla Chance: Visitante ou Empate (X2)", "Dupla Chance: Qualquer Time (12)",
+          "Empate Anula Aposta (DNB): Mandante", "Empate Anula Aposta (DNB): Visitante",
+          "Intervalo / Final do Jogo: Mandante / Mandante", "Intervalo / Final do Jogo: Empate / Mandante",
+          ...generateRange("Handicap Asiático Mandante:", -3.5, 3.5, 0.5),
+          ...generateRange("Handicap Asiático Visitante:", -3.5, 3.5, 0.5)
+        ]
+      };
+    }
+
+    const categoriasBetano = buildAllBetanoMarkets();
 
     let bets = JSON.parse(localStorage.getItem('myBets')) || [];
     let initialBank = parseFloat(localStorage.getItem('initialBank')) || 0;
@@ -379,7 +429,7 @@
     function updateMarketOptions() {
       const cat = document.getElementById('marketCategory').value;
       const select = document.getElementById('marketSelect');
-      select.innerHTML = '<option value="">-- Selecione o Mercado --</option>';
+      select.innerHTML = '<option value="">-- Selecione o Mercado Exacto --</option>';
 
       if (cat && categoriasBetano[cat]) {
         categoriasBetano[cat].forEach(m => {
@@ -471,7 +521,6 @@
       }
     }
 
-    /* Função Lote: GREEN ALL / RED ALL */
     function resolveAllLegs(betId, targetStatus) {
       const bet = bets.find(b => b.id === betId);
       if (bet) {
@@ -594,7 +643,6 @@
             ${legsHtml}
           </div>
 
-          <!-- Botões Green All e Red All -->
           <div class="batch-actions">
             <button class="btn-batch-green" onclick="resolveAllLegs(${b.id}, 'green')">🟢 Green All</button>
             <button class="btn-batch-red" onclick="resolveAllLegs(${b.id}, 'red')">🔴 Red All</button>
@@ -657,6 +705,3 @@
   </script>
 </body>
 </html>
-
-
-            
