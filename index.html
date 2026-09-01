@@ -91,7 +91,7 @@
     .btn-add { background: var(--green); color: #fff; font-weight: bold; border: none; cursor: pointer; }
     .btn-add:active { opacity: 0.8; }
 
-    /* Filters & Tools */
+    /* Filters */
     .filters {
       display: flex;
       gap: 5px;
@@ -145,6 +145,7 @@
 
   <h2>📊 Gestor de Banca Automatizado</h2>
 
+  <!-- Dashboard -->
   <div class="dashboard">
     <div class="card"><h4>BANCA ATUAL</h4><p id="currentBank">R$ 0.00</p></div>
     <div class="card"><h4>LUCRO LÍQUIDO</h4><p id="totalProfit">R$ 0.00</p></div>
@@ -152,6 +153,7 @@
     <div class="card"><h4>YIELD (RETORNO)</h4><p id="yield">0%</p></div>
   </div>
 
+  <!-- Configuração de Banca Inicial e Ferramentas -->
   <div class="bank-setup">
     <div class="bank-row">
       <label for="initialBankInput">Banca Inicial:</label>
@@ -164,28 +166,58 @@
     </div>
   </div>
 
+  <!-- Formulário de Cadastro de Aposta -->
   <form id="betForm">
+    <!-- Seletor de Data -->
     <input type="date" id="betDate" required>
 
-    <input type="text" id="match" list="teamsList" placeholder="Digite ou Selecione o Time / Confronto" required autocomplete="off">
+    <!-- Autocomplete de Times -->
+    <input type="text" id="match" list="teamsList" placeholder="Selecione ou Digite o Time / Confronto" required autocomplete="off">
     <datalist id="teamsList">
+      <!-- Brasileirão -->
       <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
       <option value="Fluminense"><option value="Vasco da Gama"><option value="Botafogo"><option value="Grêmio">
       <option value="Internacional"><option value="Atlético-MG"><option value="Cruzeiro"><option value="Bahia">
       <option value="Fortaleza"><option value="Athletico-PR"><option value="Santos"><option value="Ceará">
       <option value="Sport Recife"><option value="Vitória"><option value="Juventude"><option value="Criciúma">
+      <!-- Internacionais -->
       <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Liverpool">
       <option value="Arsenal"><option value="Bayern de Munique"><option value="PSG"><option value="Juventus">
       <option value="Inter de Milão"><option value="Al-Hilal"><option value="Al-Nassr"><option value="Boca Juniors">
     </datalist>
 
-    <input type="text" id="market" placeholder="Mercado (opcional - Ex: Ambas Marcam, Over 2.5)">
+    <!-- Autocomplete de Mercados -->
+    <input type="text" id="market" list="marketsList" placeholder="Selecione ou Digite o Mercado" required autocomplete="off">
+    <datalist id="marketsList">
+      <option value="Chance Dupla (1X)">
+      <option value="Chance Dupla (X2)">
+      <option value="Chance Dupla (12 - Qualquer time vence)">
+      <option value="Resultado Final (Vitória Casa - 1)">
+      <option value="Resultado Final (Vitória Visitante - 2)">
+      <option value="Finalizações Totais (Chutes ao Gol)">
+      <option value="Ambas as Equipes Marcam (Sim)">
+      <option value="Ambas as Equipes Marcam (Não)">
+      <option value="Mais de 1.5 Gols (Over 1.5)">
+      <option value="Mais de 2.5 Gols (Over 2.5)">
+      <option value="Menos de 2.5 Gols (Under 2.5)">
+      <option value="Escanteios Totais (Mais de 8.5)">
+      <option value="Escanteios Totais (Mais de 9.5)">
+      <option value="Escanteios Totais (Mais de 10.5)">
+      <option value="Empate Anula Aposta (DNB)">
+      <option value="Handicap Asiático">
+      <option value="Criar Aposta (Combinada)">
+      <option value="Back Favorito">
+      <option value="Lay Zebra / Cobertura">
+      <option value="Cartões Totais">
+    </datalist>
+
     <input type="number" step="0.01" id="stake" placeholder="Stake / Valor Apostado (R$)" required>
     <input type="number" step="0.01" id="odds" placeholder="Odd (Ex: 1.85)" required>
 
     <button type="submit" class="btn-add">Cadastrar Aposta</button>
   </form>
 
+  <!-- Filtros de Visualização -->
   <div class="filters">
     <button class="btn-filter active" onclick="setFilter('all', this)">Todas</button>
     <button class="btn-filter" onclick="setFilter('pending', this)">Pendentes</button>
@@ -193,6 +225,7 @@
     <button class="btn-filter" onclick="setFilter('red', this)">Reds 🔴</button>
   </div>
 
+  <!-- Lista de Apostas -->
   <div id="betsList"></div>
 
   <script>
@@ -382,3 +415,4 @@
   </script>
 </body>
 </html>
+
