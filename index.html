@@ -196,7 +196,8 @@
       display: flex;
       gap: 6px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
     }
 
     .cat-tab {
@@ -223,7 +224,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 6px;
-      max-height: 180px;
+      max-height: 220px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -469,30 +470,24 @@
     <input type="date" id="betDate" required>
 
     <div class="match-inputs">
-      <input type="text" id="homeTeam" placeholder="Mandante (Ex: Borussia)" required autocomplete="off">
+      <input type="text" id="homeTeam" placeholder="Mandante (Ex: Flamengo)" required autocomplete="off">
       <span class="match-vs">X</span>
-      <input type="text" id="awayTeam" placeholder="Visitante (Ex: Hamburg)" required autocomplete="off">
+      <input type="text" id="awayTeam" placeholder="Visitante (Ex: Palmeiras)" required autocomplete="off">
     </div>
 
-    <!-- Seletor de Categorias de Mercados Betano -->
+    <!-- Seletor Dinâmico de Categorias Betano -->
     <div class="market-picker">
       <span class="picker-label">Selecione o Mercado (Clique para Inserir)</span>
       
-      <!-- Categorias Populares -->
-      <div class="cat-tabs">
-        <button type="button" class="cat-tab active" onclick="selectCategory('gols', this)">⚽ Gols</button>
-        <button type="button" class="cat-tab" onclick="selectCategory('escanteios', this)">🚩 Escanteios</button>
-        <button type="button" class="cat-tab" onclick="selectCategory('chutes', this)">🎯 Chutes</button>
-        <button type="button" class="cat-tab" onclick="selectCategory('cartoes', this)">🟨 Cartões</button>
-        <button type="button" class="cat-tab" onclick="selectCategory('resultado', this)">🏆 Resultado</button>
-      </div>
+      <!-- Abas Geradas Dinamicamente via JS/JSON -->
+      <div class="cat-tabs" id="catTabsContainer"></div>
 
       <!-- Submercados dinâmicos da categoria ativa -->
       <div id="submarketContainer" class="submarket-grid"></div>
 
-      <!-- Opção de Texto Livre para Linhas Específicas -->
+      <!-- Opção de Texto Livre para Linhas Personalizadas -->
       <div class="custom-input-row">
-        <input type="text" id="customMarketInput" placeholder="Ou digite uma linha personalizada..." autocomplete="off">
+        <input type="text" id="customMarketInput" placeholder="Ou digite uma linha específica..." autocomplete="off">
         <button type="button" class="btn-sec" style="width: auto; white-space: nowrap;" onclick="addCustomLeg()">➕ Add</button>
       </div>
     </div>
@@ -500,7 +495,7 @@
     <!-- Lista de seleções adicionadas ao bilhete -->
     <div id="builderList" class="builder-list"></div>
 
-    <!-- Financeiro da Aposta (Sem caixa de preview) -->
+    <!-- Financeiro da Aposta -->
     <div style="display: flex; gap: 10px;">
       <input type="number" step="0.01" id="stake" placeholder="Stake / Valor (R$)" required>
       <input type="number" step="0.01" id="odds" placeholder="Odd Total (Ex: 1.85)" required>
@@ -523,94 +518,161 @@
   <script>
     const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-    // Banco de dados de mercados mais populares da Betano
-    const marketCategories = {
-      gols: [
-        'Gols: Ambas as Equipes Marcam (Sim)',
-        'Gols: Ambas as Equipes Marcam (Não)',
-        'Gols: Mais de 1.5 na Partida',
-        'Gols: Mais de 2.5 na Partida',
-        'Gols: Mais de 3.5 na Partida',
-        'Gols: Menos de 2.5 na Partida',
-        'Gols: Menos de 3.5 na Partida',
-        'Gols: Mais de 0.5 no 1º Tempo',
-        'Gols: Mais de 1.5 no 1º Tempo',
-        'Gols: Mandante Mais de 1.5 Gols',
-        'Gols: Visitante Mais de 0.5 Gols'
+    // Lista Completa Padrão (utilizada caso mercados.json não seja encontrado localmente)
+    let marketCategories = {
+      "Gols & Ambas": [
+        "Ambas as Equipes Marcam: Sim",
+        "Ambas as Equipes Marcam: Não",
+        "Mais de 0.5 Gols na Partida",
+        "Mais de 1.5 Gols na Partida",
+        "Mais de 2.5 Gols na Partida",
+        "Mais de 3.5 Gols na Partida",
+        "Menos de 2.5 Gols na Partida",
+        "Menos de 3.5 Gols na Partida",
+        "Mais de 0.5 Gols no 1º Tempo",
+        "Mais de 1.5 Gols no 1º Tempo",
+        "Mandante: Mais de 0.5 Gols",
+        "Mandante: Mais de 1.5 Gols",
+        "Visitante: Mais de 0.5 Gols",
+        "Visitante: Mais de 1.5 Gols"
       ],
-      escanteios: [
-        'Escanteios: Mais de 8.5 na Partida',
-        'Escanteios: Mais de 9.5 na Partida',
-        'Escanteios: Mais de 10.5 na Partida',
-        'Escanteios: Mais de 11.5 na Partida',
-        'Escanteios: Menos de 11.5 na Partida',
-        'Escanteios: Mandante Mais de 3.5',
-        'Escanteios: Mandante Mais de 4.5',
-        'Escanteios: Visitante Mais de 3.5',
-        'Escanteios: Visitante Mais de 4.5',
-        'Escanteios: Mais de 4.5 no 1º Tempo'
+      "Escanteios": [
+        "Escanteios: Mais de 7.5 na Partida",
+        "Escanteios: Mais de 8.5 na Partida",
+        "Escanteios: Mais de 9.5 na Partida",
+        "Escanteios: Mais de 10.5 na Partida",
+        "Escanteios: Mais de 11.5 na Partida",
+        "Escanteios: Menos de 10.5 na Partida",
+        "Escanteios: Menos de 11.5 na Partida",
+        "Mandante Escanteios: Mais de 3.5",
+        "Mandante Escanteios: Mais de 4.5",
+        "Mandante Escanteios: Mais de 5.5",
+        "Visitante Escanteios: Mais de 3.5",
+        "Visitante Escanteios: Mais de 4.5",
+        "Visitante Escanteios: Mais de 5.5",
+        "Escanteios 1º Tempo: Mais de 4.5"
       ],
-      chutes: [
-        'Chutes no Gol: Jogador +0.5 no Gol',
-        'Chutes no Gol: Jogador +1.5 no Gol',
-        'Chutes no Gol: Mais de 8.5 na Partida',
-        'Chutes no Gol: Mais de 9.5 na Partida',
-        'Chutes Totais: Jogador +1.5 Chutes',
-        'Chutes Totais: Jogador +2.5 Chutes',
-        'Chutes Totais: Mandante Mais de 12.5',
-        'Chutes Totais: Visitante Mais de 8.5'
+      "Chutes do Jogador": [
+        "Chutes no Gol: Jogador +0.5 no Gol",
+        "Chutes no Gol: Jogador +1.5 no Gol",
+        "Chutes no Gol: Jogador +2.5 no Gol",
+        "Chutes Totais: Jogador +1.5 Chutes",
+        "Chutes Totais: Jogador +2.5 Chutes",
+        "Chutes Totais: Jogador +3.5 Chutes",
+        "Jogador para Marcar a Qualquer Momento",
+        "Jogador para dar Assistência"
       ],
-      cartoes: [
-        'Cartões: Ambas as Equipes Recebem Cartão',
-        'Cartões: Mais de 3.5 Cartões Amarelos',
-        'Cartões: Mais de 4.5 Cartões Amarelos',
-        'Cartões: Mais de 5.5 Cartões Amarelos',
-        'Cartões: Jogador para Receber Cartão',
-        'Cartões: Mandante Mais de 1.5 Cartões'
+      "Chutes da Equipe": [
+        "Chutes no Gol: Mais de 7.5 na Partida",
+        "Chutes no Gol: Mais de 8.5 na Partida",
+        "Chutes no Gol: Mais de 9.5 na Partida",
+        "Chutes Totais: Mandante +11.5 Chutes",
+        "Chutes Totais: Mandante +13.5 Chutes",
+        "Chutes Totais: Visitante +8.5 Chutes",
+        "Chutes Totais: Visitante +10.5 Chutes"
       ],
-      resultado: [
-        'Resultado Final: Vitória Mandante (1)',
-        'Resultado Final: Empate (X)',
-        'Resultado Final: Vitória Visitante (2)',
-        'Dupla Chance: Mandante ou Empate (1X)',
-        'Dupla Chance: Visitante ou Empate (X2)',
-        'Empate Anula Aposta: Mandante',
-        'Empate Anula Aposta: Visitante',
-        'Intervalo/Final: Mandante / Mandante'
+      "Cartões": [
+        "Ambas as Equipes Recebem Cartão",
+        "Mais de 3.5 Cartões Amarelos",
+        "Mais de 4.5 Cartões Amarelos",
+        "Mais de 5.5 Cartões Amarelos",
+        "Menos de 5.5 Cartões Amarelos",
+        "Mandante Cartões: Mais de 1.5",
+        "Visitante Cartões: Mais de 1.5",
+        "Jogador para Receber Cartão"
+      ],
+      "Resultado Final": [
+        "Resultado Final: Vitória Mandante (1)",
+        "Resultado Final: Empate (X)",
+        "Resultado Final: Vitória Visitante (2)",
+        "Dupla Chance: Mandante ou Empate (1X)",
+        "Dupla Chance: Visitante ou Empate (X2)",
+        "Dupla Chance: Mandante ou Visitante (12)",
+        "Empate Anula Aposta: Mandante",
+        "Empate Anula Aposta: Visitante",
+        "Intervalo/Final: Mandante / Mandante"
       ]
     };
 
     let bets = JSON.parse(localStorage.getItem('myBets')) || [];
     let initialBank = parseFloat(localStorage.getItem('initialBank')) || 0;
     let currentFilter = 'all';
-    let currentCategory = 'gols';
+    let currentCategory = '';
     let tempLegs = [];
 
     document.getElementById('betDate').valueAsDate = new Date();
     document.getElementById('initialBankInput').value = initialBank ? initialBank : '';
 
-    function updateInitialBank(val) {
-      initialBank = parseFloat(val) || 0;
-      localStorage.setItem('initialBank', initialBank);
-      render();
+    // Função de Carregamento Dinâmico de Categorias do Arquivo JSON
+    async function carregarMercadosJSON() {
+      try {
+        const resposta = await fetch('mercados.json');
+        if (resposta.ok) {
+          const dados = await resposta.json();
+          if (dados && Object.keys(dados).length > 0) {
+            marketCategories = dados;
+          }
+        }
+      } catch (e) {
+        console.warn("Lendo lista padrão de mercados (arquivo mercados.json não encontrado ou aberto localmente).");
+      }
+      renderCategoryTabs();
     }
 
-    function selectCategory(cat, btn) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    function getCategoryIcon(catName) {
+      const name = catName.toLowerCase();
+      if (name.includes('gol')) return '⚽';
+      if (name.includes('escanteio')) return '🚩';
+      if (name.includes('chute')) return '🎯';
+      if (name.includes('cartã') || name.includes('cartao')) return '🟨';
+      if (name.includes('resultado') || name.includes('vencedor')) return '🏆';
+      if (name.includes('jogador')) return '👤';
+      return '📌';
+    }
+
+    function renderCategoryTabs() {
+      const container = document.getElementById('catTabsContainer');
+      const keys = Object.keys(marketCategories);
+
+      if (keys.length === 0) return;
+
+      if (!currentCategory || !keys.includes(currentCategory)) {
+        currentCategory = keys[0];
+      }
+
+      container.innerHTML = keys.map(cat => {
+        const isActive = cat === currentCategory ? 'active' : '';
+        const icon = getCategoryIcon(cat);
+        // Escapa aspas para evitar erros de sintaxe
+        const catEscaped = cat.replace(/'/g, "\\'");
+        return `<button type="button" class="cat-tab ${isActive}" onclick="selectCategory('${catEscaped}')">${icon} ${cat}</button>`;
+      }).join('');
+
       renderSubmarkets();
+    }
+
+    function selectCategory(cat) {
+      currentCategory = cat;
+      renderCategoryTabs();
     }
 
     function renderSubmarkets() {
       const container = document.getElementById('submarketContainer');
       const items = marketCategories[currentCategory] || [];
       
-      container.innerHTML = items.map(item => `
-        <button type="button" class="submarket-btn" onclick="addLegFromPicker('${item}')">
-          ➕ ${item}
-        </button>
-      `).join('');
+      if (items.length === 0) {
+        container.innerHTML = '<div style="grid-column: span 2; font-size:0.8rem; color:var(--subtext); padding:10px;">Nenhuma opção nesta categoria.</div>';
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const itemEscaped = item.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        return `
+          <button type="button" class="submarket-btn" onclick="addLegFromPicker('${itemEscaped}')">
+            ➕ ${item}
+          </button>
+        `;
+      }).join('');
     }
 
     function addLegFromPicker(marketName) {
@@ -643,6 +705,12 @@
       `).join('');
     }
 
+    function updateInitialBank(val) {
+      initialBank = parseFloat(val) || 0;
+      localStorage.setItem('initialBank', initialBank);
+      render();
+    }
+
     document.getElementById('betForm').addEventListener('submit', (e) => {
       e.preventDefault();
       
@@ -655,7 +723,7 @@
       const odds = parseFloat(document.getElementById('odds').value);
 
       if (tempLegs.length === 0) {
-        alert("Por favor, selecione ao menos um mercado para o bilhete.");
+        alert("Por favor, selecione ao menos uma opção ou mercado para o seu bilhete.");
         return;
       }
 
@@ -794,7 +862,6 @@
             <span class="badge ${badgeClass}">${badgeText}</span>
           </div>
 
-          <!-- Exibição de Valores no Bilhete -->
           <div class="fin-box">
             <div class="fin-item">
               <label>Apostado</label>
@@ -874,16 +941,18 @@
               saveAndUpdate();
             }
           } catch (err) {
-            alert("Erro ao ler backup.");
+            alert("Erro ao ler arquivo de backup.");
           }
         }
       }
       input.click();
     }
 
-    // Inicialização
-    renderSubmarkets();
-    render();
+    // Inicialização ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+      carregarMercadosJSON();
+      render();
+    });
   </script>
 </body>
 </html>
