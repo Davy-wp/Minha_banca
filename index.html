@@ -518,7 +518,7 @@
   <script>
     const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-    // Gerador dinâmico completo (Do Mínimo ao Máximo)
+    // Gerador dinâmico completo (Do Mínimo ao Máximo absoluto)
     function gerarMercadosCompletos() {
       const cats = {
         "Gols": [],
@@ -560,7 +560,7 @@
         cats["Gols"].push(`1º Tempo: Menos de ${i.toFixed(1)} Gols`);
       }
 
-      // ESCANTEIOS: De 0.5 até 18.5
+      // ESCANTEIOS: De 0.5 até 18.5 (Todas as variações possíveis)
       for (let i = 0.5; i <= 18.5; i += 1.0) {
         cats["Escanteios"].push(`Escanteios: Mais de ${i.toFixed(1)} na Partida`);
         cats["Escanteios"].push(`Escanteios: Menos de ${i.toFixed(1)} na Partida`);
@@ -610,21 +610,6 @@
 
     document.getElementById('betDate').valueAsDate = new Date();
     document.getElementById('initialBankInput').value = initialBank ? initialBank : '';
-
-    async function carregarMercadosJSON() {
-      try {
-        const resposta = await fetch('mercados.json');
-        if (resposta.ok) {
-          const dados = await resposta.json();
-          if (dados && Object.keys(dados).length > 0) {
-            marketCategories = dados;
-          }
-        }
-      } catch (e) {
-        // Usa automaticamente a lista gerada do mínimo ao máximo
-      }
-      renderCategoryTabs();
-    }
 
     function getCategoryIcon(catName) {
       const name = catName.toLowerCase();
@@ -955,9 +940,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      carregarMercadosJSON();
+      marketCategories = gerarMercadosCompletos();
+      renderCategoryTabs();
       render();
     });
   </script>
 </body>
 </html>
+
