@@ -73,6 +73,665 @@
       gap: 12px;
     }
 
+    .match-inputs {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .match-inputs input { flex: 1; }
+    .match-vs { font-weight: bold; color: var(--subtext); font-size: 0.9rem; padding: 0 2px; }
+
+    input, select, button {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      background: #121214;
+      color: #fff;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    input:focus, select:focus { outline: 1px solid var(--green); }
+
+    .add-selection-box {
+      background: #18181b;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .category-grid {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-sec-add { background: #29292e; color: #fff; font-size: 0.85rem; font-weight: bold; cursor: pointer; border: 1px solid var(--border); }
+    .btn-add { background: var(--green); color: #fff; font-weight: bold; border: none; cursor: pointer; padding: 12px; }
+
+    .selections-builder {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .builder-item {
+      background: var(--card-bg);
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+    }
+
+    .filters {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+
+    .btn-filter {
+      background: var(--card-bg);
+      color: var(--subtext);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-filter.active { background: var(--green); color: #fff; border-color: var(--green); }
+
+    .bet-item {
+      background: var(--card-bg);
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .bet-date { font-size: 0.75rem; color: var(--subtext); font-weight: bold; }
+    .bet-title { font-size: 1.05rem; font-weight: bold; color: #fff; margin-top: 2px; }
+    .bet-financial { font-size: 0.85rem; color: var(--subtext); text-align: right; }
+
+    .legs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .leg-item {
+      background: #18181b;
+      padding: 8px 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      border-left: 3px solid var(--border);
+    }
+
+    .leg-item.green { border-left-color: var(--green-text); }
+    .leg-item.red { border-left-color: var(--red); }
+    .leg-item.pending { border-left-color: var(--yellow); }
+
+    .leg-actions { display: flex; gap: 4px; }
+    .btn-mini-green { background: var(--green); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .btn-mini-red { background: var(--red); color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+
+    /* Botões de Resolução Global (Green All / Red All) */
+    .batch-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .btn-batch-green {
+      background: rgba(0, 180, 126, 0.2);
+      color: var(--green-text);
+      border: 1px solid var(--green);
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .btn-batch-red {
+      background: rgba(247, 90, 104, 0.2);
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .bet-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 5px;
+    }
+
+    .status-badge { font-size: 0.85rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+    .badge-green { background: rgba(0, 180, 126, 0.15); color: var(--green-text); }
+    .badge-red { background: rgba(247, 90, 104, 0.15); color: var(--red); }
+    .badge-pending { background: rgba(225, 161, 0, 0.15); color: var(--yellow); }
+
+    .btn-del { background: #29292e; color: #a8a8b3; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+    .green-text { color: var(--green-text); font-weight: bold; }
+    .red-text { color: var(--red); font-weight: bold; }
+
+    .backup-actions { display: flex; gap: 8px; margin-top: 5px; }
+    .btn-sec { background: #29292e; color: #fff; border: none; padding: 8px; font-size: 0.8rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>📊 Gestor de Banca Betano Pro</h2>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <div class="card"><h4>BANCA ATUAL</h4><p id="currentBank">R$ 0.00</p></div>
+    <div class="card"><h4>LUCRO LÍQUIDO</h4><p id="totalProfit">R$ 0.00</p></div>
+    <div class="card"><h4>TAXA DE ACERTO</h4><p id="winRate">0%</p></div>
+    <div class="card"><h4>YIELD (RETORNO)</h4><p id="yield">0%</p></div>
+  </div>
+
+  <!-- Configuração de Banca -->
+  <div class="bank-setup">
+    <div class="bank-row">
+      <label for="initialBankInput">Banca Inicial:</label>
+      <input type="number" id="initialBankInput" step="0.01" placeholder="Ex: 100.00" onchange="updateInitialBank(this.value)">
+    </div>
+    <div class="backup-actions">
+      <button class="btn-sec" onclick="exportData()">💾 Backup</button>
+      <button class="btn-sec" onclick="importData()">📂 Restauração</button>
+      <button class="btn-sec" style="color: var(--red);" onclick="resetAll()">⚠️ Zerar Tudo</button>
+    </div>
+  </div>
+
+  <!-- Cadastro de Aposta -->
+  <form id="betForm">
+    <input type="date" id="betDate" required>
+
+    <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Confronto:</span>
+    <div class="match-inputs">
+      <input type="text" id="homeTeam" list="teamsList" placeholder="Mandante (Ex: Al-Hilal)" required autocomplete="off">
+      <span class="match-vs">x</span>
+      <input type="text" id="awayTeam" list="teamsList" placeholder="Visitante (Ex: Al-Ahly)" required autocomplete="off">
+    </div>
+
+    <datalist id="teamsList">
+      <option value="Al-Hilal"><option value="Al-Ahly"><option value="Al-Nassr"><option value="Al-Ittihad">
+      <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
+      <option value="Fluminense"><option value="Botafogo"><option value="Grêmio"><option value="Internacional">
+      <option value="Atlético-MG"><option value="Cruzeiro"><option value="Sport Recife"><option value="Ceará">
+      <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Bayern de Munique">
+      <option value="PSG"><option value="Boca Juniors"><option value="River Plate">
+    </datalist>
+
+    <!-- Adicionador Categorizado -->
+    <div class="add-selection-box">
+      <span style="font-size: 0.85rem; color: var(--subtext); font-weight: bold;">Mercados por Categoria (Betano):</span>
+      
+      <div class="category-grid">
+        <select id="marketCategory" onchange="updateMarketOptions()" style="flex: 1;">
+          <option value="">-- Categoria --</option>
+          <option value="escanteios">🚩 Escanteios</option>
+          <option value="gols">⚽ Gols & AM</option>
+          <option value="cartoes">🟨 Cartões & Faltas</option>
+          <option value="chutes">🎯 Chutes & Finalizações</option>
+          <option value="resultado">🏆 Resultado & Dupla Chance</option>
+        </select>
+
+        <select id="marketSelect" style="flex: 1.5;">
+          <option value="">Selecione uma categoria...</option>
+        </select>
+      </div>
+
+      <input type="text" id="customMarketInput" placeholder="Ou digite manualmente se preferir..." autocomplete="off">
+
+      <button type="button" class="btn-sec-add" onclick="addLegToForm()">➕ Adicionar Seleção ao Bilhete</button>
+      <div id="builderList" class="selections-builder"></div>
+    </div>
+
+    <input type="number" step="0.01" id="stake" placeholder="Stake / Valor Apostado (R$)" required>
+    <input type="number" step="0.01" id="odds" placeholder="Odd Total do Bilhete (Ex: 1.90)" required>
+
+    <button type="submit" class="btn-add">Cadastrar Bilhete de Aposta</button>
+  </form>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <button class="btn-filter active" onclick="setFilter('all', this)">Todas</button>
+    <button class="btn-filter" onclick="setFilter('pending', this)">Pendentes</button>
+    <button class="btn-filter" onclick="setFilter('green', this)">Greens 🟢</button>
+    <button class="btn-filter" onclick="setFilter('red', this)">Reds 🔴</button>
+  </div>
+
+  <div id="betsList"></div>
+
+  <script>
+    const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+
+    const categoriasBetano = {
+      escanteios: [
+        "Escanteios: Mais de 7.5 na Partida", "Escanteios: Mais de 8.5 na Partida", "Escanteios: Mais de 9.5 na Partida",
+        "Escanteios: Mais de 10.5 na Partida", "Escanteios: Mais de 3.5 do Mandante", "Escanteios: Mais de 4.5 do Mandante",
+        "Escanteios: Mais de 3.5 do Visitante", "Escanteios: Mais de 4.5 do Visitante"
+      ],
+      gols: [
+        "Gols: Mais de 0.5 na Partida", "Gols: Mais de 1.5 na Partida", "Gols: Mais de 2.5 na Partida",
+        "Gols: Ambos Marcam (Sim)", "Gols: Ambos Marcam (Não)", "Gols: Mais de 0.5 Gol Mandante",
+        "Gols: Mais de 0.5 Gol Visitante", "Gols: Jogador para Marcar"
+      ],
+      cartoes: [
+        "Cartões: Mais de 3.5 Cartões na Partida", "Cartões: Mais de 4.5 Cartões na Partida", "Cartões: Mais de 5.5 Cartões na Partida",
+        "Cartões: Ambas as Equipes Recebem 1+ Cartão", "Cartões: Mais de 1.5 Cartões Mandante", "Cartões: Mais de 1.5 Cartões Visitante",
+        "Cartões: Jogador para Receber Cartão"
+      ],
+      chutes: [
+        "Chutes no Gol: Mais de 7.5 na Partida", "Chutes no Gol: Mais de 9.5 na Partida", "Chutes no Gol: Mais de 3.5 Mandante",
+        "Chutes no Gol: Mais de 4.5 Mandante", "Chutes no Gol: Mais de 3.5 Visitante", "Chutes no Gol: +0.5 Chute no Gol (Jogador)",
+        "Chutes no Gol: +1.5 Chutes no Gol (Jogador)", "Finalizações: +1.5 Chutes Totais (Jogador)"
+      ],
+      resultado: [
+        "Chance Dupla: Mandante ou Empate (1X)", "Chance Dupla: Visitante ou Empate (X2)", "Chance Dupla: Qualquer Time Vence (12)",
+        "Resultado Final: Vitória do Mandante", "Resultado Final: Vitória do Visitante", "Empate Anula Aposta (DNB - Mandante)",
+        "Empate Anula Aposta (DNB - Visitante)"
+      ]
+    };
+
+    let bets = JSON.parse(localStorage.getItem('myBets')) || [];
+    let initialBank = parseFloat(localStorage.getItem('initialBank')) || 0;
+    let currentFilter = 'all';
+    let tempLegs = [];
+
+    document.getElementById('betDate').valueAsDate = new Date();
+    document.getElementById('initialBankInput').value = initialBank ? initialBank : '';
+
+    function updateMarketOptions() {
+      const cat = document.getElementById('marketCategory').value;
+      const select = document.getElementById('marketSelect');
+      select.innerHTML = '<option value="">-- Selecione o Mercado --</option>';
+
+      if (cat && categoriasBetano[cat]) {
+        categoriasBetano[cat].forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    function updateInitialBank(val) {
+      initialBank = parseFloat(val) || 0;
+      localStorage.setItem('initialBank', initialBank);
+      render();
+    }
+
+    function addLegToForm() {
+      const selectVal = document.getElementById('marketSelect').value;
+      const customVal = document.getElementById('customMarketInput').value.trim();
+      const val = selectVal || customVal;
+
+      if (val) {
+        tempLegs.push({ id: Date.now() + Math.random(), name: val, status: 'pending' });
+        document.getElementById('marketSelect').value = '';
+        document.getElementById('customMarketInput').value = '';
+        renderBuilder();
+      }
+    }
+
+    function removeLegFromForm(id) {
+      tempLegs = tempLegs.filter(l => l.id !== id);
+      renderBuilder();
+    }
+
+    function renderBuilder() {
+      const container = document.getElementById('builderList');
+      container.innerHTML = tempLegs.map(l => `
+        <div class="builder-item">
+          <span>📌 ${l.name}</span>
+          <button type="button" style="background:none; border:none; color:var(--red); cursor:pointer; font-weight:bold;" onclick="removeLegFromForm(${l.id})">✖</button>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('betForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const dateVal = document.getElementById('betDate').value;
+      const home = document.getElementById('homeTeam').value.trim();
+      const away = document.getElementById('awayTeam').value.trim();
+      const match = (home && away) ? `${home} x ${away}` : (home || away);
+      
+      const stake = parseFloat(document.getElementById('stake').value);
+      const odds = parseFloat(document.getElementById('odds').value);
+
+      if (tempLegs.length === 0) {
+        const customVal = document.getElementById('customMarketInput').value.trim() || 'Aposta Simples';
+        tempLegs.push({ id: Date.now(), name: customVal, status: 'pending' });
+      }
+
+      bets.unshift({
+        id: Date.now(),
+        date: dateVal,
+        match,
+        stake,
+        odds,
+        status: 'pending',
+        legs: tempLegs
+      });
+
+      tempLegs = [];
+      renderBuilder();
+      saveAndUpdate();
+      e.target.reset();
+      document.getElementById('betDate').valueAsDate = new Date();
+    });
+
+    function toggleLegStatus(betId, legId, newStatus) {
+      const bet = bets.find(b => b.id === betId);
+      if (bet) {
+        const leg = bet.legs.find(l => l.id === legId);
+        if (leg) {
+          leg.status = (leg.status === newStatus) ? 'pending' : newStatus;
+        }
+
+        updateBetOverallStatus(bet);
+        saveAndUpdate();
+      }
+    }
+
+    /* Função Lote: GREEN ALL / RED ALL */
+    function resolveAllLegs(betId, targetStatus) {
+      const bet = bets.find(b => b.id === betId);
+      if (bet) {
+        bet.legs.forEach(l => l.status = targetStatus);
+        bet.status = targetStatus;
+        saveAndUpdate();
+      }
+    }
+
+    function updateBetOverallStatus(bet) {
+      const hasRed = bet.legs.some(l => l.status === 'red');
+      const allGreen = bet.legs.every(l => l.status === 'green');
+
+      if (hasRed) {
+        bet.status = 'red';
+      } else if (allGreen && bet.legs.length > 0) {
+        bet.status = 'green';
+      } else {
+        bet.status = 'pending';
+      }
+    }
+
+    function deleteBet(id) {
+      if (confirm("Deseja apagar este bilhete de aposta?")) {
+        bets = bets.filter(b => b.id !== id);
+        saveAndUpdate();
+      }
+    }
+
+    function resetAll() {
+      if (confirm("⚠️ ATENÇÃO: Deseja apagar TODAS as apostas e zerar a banca?")) {
+        bets = [];
+        initialBank = 0;
+        localStorage.removeItem('myBets');
+        localStorage.removeItem('initialBank');
+        document.getElementById('initialBankInput').value = '';
+        render();
+      }
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    }
+
+    function saveAndUpdate() {
+      localStorage.setItem('myBets', JSON.stringify(bets));
+      render();
+    }
+
+    function formatDateFormatted(dateStr) {
+      if (!dateStr) return '';
+      const parts = dateStr.split('-');
+      const d = new Date(parts[0], parts[1] - 1, parts[2]);
+      const dayName = daysOfWeek[d.getDay()];
+      return `${dayName}, ${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
+    function render() {
+      const list = document.getElementById('betsList');
+      list.innerHTML = '';
+
+      let totalProfit = 0;
+      let totalStaked = 0;
+      let greens = 0;
+      let finishedCount = 0;
+
+      bets.forEach(b => {
+        let profit = 0;
+        if (b.status === 'green') {
+          profit = (b.stake * b.odds) - b.stake;
+          totalProfit += profit;
+          totalStaked += b.stake;
+          greens++;
+          finishedCount++;
+        } else if (b.status === 'red') {
+          profit = -b.stake;
+          totalProfit += profit;
+          totalStaked += b.stake;
+          finishedCount++;
+        }
+
+        if (currentFilter !== 'all' && b.status !== currentFilter) {
+          return;
+        }
+
+        const div = document.createElement('div');
+        div.className = 'bet-item';
+
+        const legsHtml = (b.legs || []).map(l => `
+          <div class="leg-item ${l.status}">
+            <span>${l.status === 'green' ? '✅' : l.status === 'red' ? '❌' : '⏳'} ${l.name}</span>
+            <div class="leg-actions">
+              <button class="btn-mini-green" onclick="toggleLegStatus(${b.id}, ${l.id}, 'green')">🟢</button>
+              <button class="btn-mini-red" onclick="toggleLegStatus(${b.id}, ${l.id}, 'red')">🔴</button>
+            </div>
+          </div>
+        `).join('');
+
+        let badgeClass = 'badge-pending';
+        let badgeText = 'PENDENTE ⏳';
+        if (b.status === 'green') { badgeClass = 'badge-green'; badgeText = 'GREEN 🟢'; }
+        if (b.status === 'red') { badgeClass = 'badge-red'; badgeText = 'RED 🔴'; }
+
+        div.innerHTML = `
+          <div class="bet-header">
+            <div>
+              <div class="bet-date">📅 ${formatDateFormatted(b.date)}</div>
+              <div class="bet-title">${b.match}</div>
+            </div>
+            <div class="bet-financial">
+              <strong>R$ ${b.stake.toFixed(2)}</strong> @ <strong>${b.odds.toFixed(2)}</strong>
+              <div>${b.status !== 'pending' ? `<span class="${profit >= 0 ? 'green-text' : 'red-text'}">${profit > 0 ? '+' : ''}R$ ${profit.toFixed(2)}</span>` : ''}</div>
+            </div>
+          </div>
+
+          <div class="legs-list">
+            ${legsHtml}
+          </div>
+
+          <!-- Botões Green All e Red All -->
+          <div class="batch-actions">
+            <button class="btn-batch-green" onclick="resolveAllLegs(${b.id}, 'green')">🟢 Green All</button>
+            <button class="btn-batch-red" onclick="resolveAllLegs(${b.id}, 'red')">🔴 Red All</button>
+          </div>
+
+          <div class="bet-footer">
+            <span class="status-badge ${badgeClass}">${badgeText}</span>
+            <button class="btn-del" onclick="deleteBet(${b.id})" title="Excluir Bilhete">🗑️ Excluir</button>
+          </div>
+        `;
+
+        list.appendChild(div);
+      });
+
+      const currentBank = initialBank + totalProfit;
+
+      document.getElementById('currentBank').textContent = `R$ ${currentBank.toFixed(2)}`;
+      document.getElementById('totalProfit').textContent = `R$ ${totalProfit.toFixed(2)}`;
+      document.getElementById('totalProfit').style.color = totalProfit >= 0 ? '#00b37e' : '#f75a68';
+      
+      document.getElementById('winRate').textContent = finishedCount ? `${((greens / finishedCount) * 100).toFixed(1)}%` : '0%';
+      document.getElementById('yield').textContent = totalStaked ? `${((totalProfit / totalStaked) * 100).toFixed(1)}%` : '0%';
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ bets, initialBank }));
+      const dlAnchorElem = document.createElement('a');
+      dlAnchorElem.setAttribute("href", dataStr);
+      dlAnchorElem.setAttribute("download", `banca_backup_${new Date().toISOString().slice(0,10)}.json`);
+      dlAnchorElem.click();
+    }
+
+    function importData() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.onchange = e => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = readerEvent => {
+          try {
+            const content = JSON.parse(readerEvent.target.result);
+            if (content.bets) {
+              bets = content.bets;
+              initialBank = content.initialBank || 0;
+              document.getElementById('initialBankInput').value = initialBank;
+              saveAndUpdate();
+              alert("Backup restaurado com sucesso!");
+            }
+          } catch (err) {
+            alert("Erro ao ler o arquivo de backup.");
+          }
+        }
+      }
+      input.click();
+    }
+
+    render();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Banca Betano Pro</title>
+  <style>
+    :root {
+      --bg: #121214;
+      --card-bg: #202024;
+      --border: #29292e;
+      --text: #e1e1e6;
+      --subtext: #a8a8b3;
+      --green: #00875f;
+      --green-text: #00b37e;
+      --red: #f75a68;
+      --yellow: #e1a100;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 15px;
+      margin: 0;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h2 { text-align: center; margin-top: 5px; margin-bottom: 15px; font-size: 1.3rem; color: #fff; }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .card h4 { margin: 0; font-size: 0.7rem; color: var(--subtext); text-transform: uppercase; }
+    .card p { margin: 6px 0 0; font-size: 1.1rem; font-weight: bold; }
+
+    .bank-setup {
+      background: var(--card-bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bank-row { display: flex; gap: 8px; align-items: center; }
+    .bank-row label { font-size: 0.85rem; color: var(--subtext); min-width: 90px; }
+
+    form {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     /* Campos de Confronto (Time 1 x Time 2) */
     .match-inputs {
       display: flex;
