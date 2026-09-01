@@ -224,7 +224,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 6px;
-      max-height: 220px;
+      max-height: 240px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -479,7 +479,7 @@
     <div class="market-picker">
       <span class="picker-label">Selecione o Mercado (Clique para Inserir)</span>
       
-      <!-- Abas Geradas Dinamicamente via JS/JSON -->
+      <!-- Abas Geradas Dinamicamente -->
       <div class="cat-tabs" id="catTabsContainer"></div>
 
       <!-- Submercados dinâmicos da categoria ativa -->
@@ -518,82 +518,90 @@
   <script>
     const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-    // Lista Completa Padrão (utilizada caso mercados.json não seja encontrado localmente)
-    let marketCategories = {
-      "Gols & Ambas": [
-        "Ambas as Equipes Marcam: Sim",
-        "Ambas as Equipes Marcam: Não",
-        "Mais de 0.5 Gols na Partida",
-        "Mais de 1.5 Gols na Partida",
-        "Mais de 2.5 Gols na Partida",
-        "Mais de 3.5 Gols na Partida",
-        "Menos de 2.5 Gols na Partida",
-        "Menos de 3.5 Gols na Partida",
-        "Mais de 0.5 Gols no 1º Tempo",
-        "Mais de 1.5 Gols no 1º Tempo",
-        "Mandante: Mais de 0.5 Gols",
-        "Mandante: Mais de 1.5 Gols",
-        "Visitante: Mais de 0.5 Gols",
-        "Visitante: Mais de 1.5 Gols"
-      ],
-      "Escanteios": [
-        "Escanteios: Mais de 7.5 na Partida",
-        "Escanteios: Mais de 8.5 na Partida",
-        "Escanteios: Mais de 9.5 na Partida",
-        "Escanteios: Mais de 10.5 na Partida",
-        "Escanteios: Mais de 11.5 na Partida",
-        "Escanteios: Menos de 10.5 na Partida",
-        "Escanteios: Menos de 11.5 na Partida",
-        "Mandante Escanteios: Mais de 3.5",
-        "Mandante Escanteios: Mais de 4.5",
-        "Mandante Escanteios: Mais de 5.5",
-        "Visitante Escanteios: Mais de 3.5",
-        "Visitante Escanteios: Mais de 4.5",
-        "Visitante Escanteios: Mais de 5.5",
-        "Escanteios 1º Tempo: Mais de 4.5"
-      ],
-      "Chutes do Jogador": [
-        "Chutes no Gol: Jogador +0.5 no Gol",
-        "Chutes no Gol: Jogador +1.5 no Gol",
-        "Chutes no Gol: Jogador +2.5 no Gol",
-        "Chutes Totais: Jogador +1.5 Chutes",
-        "Chutes Totais: Jogador +2.5 Chutes",
-        "Chutes Totais: Jogador +3.5 Chutes",
-        "Jogador para Marcar a Qualquer Momento",
-        "Jogador para dar Assistência"
-      ],
-      "Chutes da Equipe": [
-        "Chutes no Gol: Mais de 7.5 na Partida",
-        "Chutes no Gol: Mais de 8.5 na Partida",
-        "Chutes no Gol: Mais de 9.5 na Partida",
-        "Chutes Totais: Mandante +11.5 Chutes",
-        "Chutes Totais: Mandante +13.5 Chutes",
-        "Chutes Totais: Visitante +8.5 Chutes",
-        "Chutes Totais: Visitante +10.5 Chutes"
-      ],
-      "Cartões": [
-        "Ambas as Equipes Recebem Cartão",
-        "Mais de 3.5 Cartões Amarelos",
-        "Mais de 4.5 Cartões Amarelos",
-        "Mais de 5.5 Cartões Amarelos",
-        "Menos de 5.5 Cartões Amarelos",
-        "Mandante Cartões: Mais de 1.5",
-        "Visitante Cartões: Mais de 1.5",
-        "Jogador para Receber Cartão"
-      ],
-      "Resultado Final": [
-        "Resultado Final: Vitória Mandante (1)",
-        "Resultado Final: Empate (X)",
-        "Resultado Final: Vitória Visitante (2)",
-        "Dupla Chance: Mandante ou Empate (1X)",
-        "Dupla Chance: Visitante ou Empate (X2)",
-        "Dupla Chance: Mandante ou Visitante (12)",
-        "Empate Anula Aposta: Mandante",
-        "Empate Anula Aposta: Visitante",
-        "Intervalo/Final: Mandante / Mandante"
-      ]
-    };
+    // Gerador dinâmico completo (Do Mínimo ao Máximo)
+    function gerarMercadosCompletos() {
+      const cats = {
+        "Gols": [],
+        "Escanteios": [],
+        "Cartões": [],
+        "Chutes": [],
+        "Resultado & Dupla Chance": [
+          "Resultado Final: Vitória Mandante (1)",
+          "Resultado Final: Empate (X)",
+          "Resultado Final: Vitória Visitante (2)",
+          "Dupla Chance: Mandante ou Empate (1X)",
+          "Dupla Chance: Visitante ou Empate (X2)",
+          "Dupla Chance: Mandante ou Visitante (12)",
+          "Empate Anula Aposta: Mandante",
+          "Empate Anula Aposta: Visitante",
+          "Ambas as Equipes Marcam: Sim",
+          "Ambas as Equipes Marcam: Não"
+        ],
+        "Jogadores": [
+          "Jogador para Marcar a Qualquer Momento",
+          "Jogador para dar Assistência",
+          "Jogador para Receber Cartão Amarelo"
+        ]
+      };
 
+      // GOLS: De 0.5 até 8.5
+      for (let i = 0.5; i <= 8.5; i += 1.0) {
+        cats["Gols"].push(`Mais de ${i.toFixed(1)} Gols na Partida`);
+        cats["Gols"].push(`Menos de ${i.toFixed(1)} Gols na Partida`);
+      }
+      for (let i = 0.5; i <= 5.5; i += 1.0) {
+        cats["Gols"].push(`Mandante: Mais de ${i.toFixed(1)} Gols`);
+        cats["Gols"].push(`Mandante: Menos de ${i.toFixed(1)} Gols`);
+        cats["Gols"].push(`Visitante: Mais de ${i.toFixed(1)} Gols`);
+        cats["Gols"].push(`Visitante: Menos de ${i.toFixed(1)} Gols`);
+      }
+      for (let i = 0.5; i <= 4.5; i += 1.0) {
+        cats["Gols"].push(`1º Tempo: Mais de ${i.toFixed(1)} Gols`);
+        cats["Gols"].push(`1º Tempo: Menos de ${i.toFixed(1)} Gols`);
+      }
+
+      // ESCANTEIOS: De 0.5 até 18.5
+      for (let i = 0.5; i <= 18.5; i += 1.0) {
+        cats["Escanteios"].push(`Escanteios: Mais de ${i.toFixed(1)} na Partida`);
+        cats["Escanteios"].push(`Escanteios: Menos de ${i.toFixed(1)} na Partida`);
+      }
+      for (let i = 0.5; i <= 12.5; i += 1.0) {
+        cats["Escanteios"].push(`Mandante Escanteios: Mais de ${i.toFixed(1)}`);
+        cats["Escanteios"].push(`Mandante Escanteios: Menos de ${i.toFixed(1)}`);
+        cats["Escanteios"].push(`Visitante Escanteios: Mais de ${i.toFixed(1)}`);
+        cats["Escanteios"].push(`Visitante Escanteios: Menos de ${i.toFixed(1)}`);
+      }
+      for (let i = 0.5; i <= 9.5; i += 1.0) {
+        cats["Escanteios"].push(`1º Tempo Escanteios: Mais de ${i.toFixed(1)}`);
+        cats["Escanteios"].push(`1º Tempo Escanteios: Menos de ${i.toFixed(1)}`);
+      }
+
+      // CARTÕES: De 0.5 até 10.5
+      for (let i = 0.5; i <= 10.5; i += 1.0) {
+        cats["Cartões"].push(`Cartões: Mais de ${i.toFixed(1)} na Partida`);
+        cats["Cartões"].push(`Cartões: Menos de ${i.toFixed(1)} na Partida`);
+      }
+      for (let i = 0.5; i <= 6.5; i += 1.0) {
+        cats["Cartões"].push(`Mandante Cartões: Mais de ${i.toFixed(1)}`);
+        cats["Cartões"].push(`Visitante Cartões: Mais de ${i.toFixed(1)}`);
+      }
+
+      // CHUTES: De 0.5 até 25.5
+      for (let i = 0.5; i <= 15.5; i += 1.0) {
+        cats["Chutes"].push(`Chutes no Gol: Mais de ${i.toFixed(1)} na Partida`);
+      }
+      for (let i = 3.5; i <= 25.5; i += 1.0) {
+        cats["Chutes"].push(`Chutes Totais: Mais de ${i.toFixed(1)} na Partida`);
+      }
+      for (let i = 0.5; i <= 5.5; i += 1.0) {
+        cats["Jogadores"].push(`Chutes no Gol: Jogador +${i.toFixed(1)}`);
+        cats["Jogadores"].push(`Chutes Totais: Jogador +${i.toFixed(1)}`);
+      }
+
+      return cats;
+    }
+
+    let marketCategories = gerarMercadosCompletos();
     let bets = JSON.parse(localStorage.getItem('myBets')) || [];
     let initialBank = parseFloat(localStorage.getItem('initialBank')) || 0;
     let currentFilter = 'all';
@@ -603,7 +611,6 @@
     document.getElementById('betDate').valueAsDate = new Date();
     document.getElementById('initialBankInput').value = initialBank ? initialBank : '';
 
-    // Função de Carregamento Dinâmico de Categorias do Arquivo JSON
     async function carregarMercadosJSON() {
       try {
         const resposta = await fetch('mercados.json');
@@ -614,7 +621,7 @@
           }
         }
       } catch (e) {
-        console.warn("Lendo lista padrão de mercados (arquivo mercados.json não encontrado ou aberto localmente).");
+        // Usa automaticamente a lista gerada do mínimo ao máximo
       }
       renderCategoryTabs();
     }
@@ -643,7 +650,6 @@
       container.innerHTML = keys.map(cat => {
         const isActive = cat === currentCategory ? 'active' : '';
         const icon = getCategoryIcon(cat);
-        // Escapa aspas para evitar erros de sintaxe
         const catEscaped = cat.replace(/'/g, "\\'");
         return `<button type="button" class="cat-tab ${isActive}" onclick="selectCategory('${catEscaped}')">${icon} ${cat}</button>`;
       }).join('');
@@ -948,7 +954,6 @@
       input.click();
     }
 
-    // Inicialização ao carregar a página
     document.addEventListener('DOMContentLoaded', () => {
       carregarMercadosJSON();
       render();
