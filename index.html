@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bet Manager Pro - Clean Black</title>
+  <title>Bet Manager Pro - Dark Clean</title>
   <style>
     :root {
       --bg: #121212;
@@ -12,9 +12,9 @@
       --border: #333333;
       --text: #f0f0f0;
       --subtext: #a0a0a0;
-      --green: #10b981; /* Verde discreto */
+      --green: #10b981;
       --green-bg: rgba(16, 185, 129, 0.15);
-      --blue: #3b82f6; /* Azul de detalhe */
+      --blue: #3b82f6;
       --blue-bg: rgba(59, 130, 246, 0.15);
       --red: #ef4444;
       --red-bg: rgba(239, 68, 68, 0.15);
@@ -33,18 +33,8 @@
       margin: 0 auto;
     }
 
-    header {
-      text-align: center;
-      padding: 16px 0 20px;
-    }
-
-    header h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-    }
-
+    header { text-align: center; padding: 16px 0 20px; }
+    header h1 { font-size: 1.4rem; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; }
     header h1 span { color: var(--green); }
 
     /* Metrics Dashboard */
@@ -71,18 +61,10 @@
       margin-bottom: 4px;
     }
 
-    .metric-card .val {
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
+    .metric-card .val { font-size: 1.2rem; font-weight: 700; }
+    .metric-card .sub-val { font-size: 0.75rem; margin-top: 2px; font-weight: 500; }
 
-    .metric-card .sub-val {
-      font-size: 0.75rem;
-      margin-top: 2px;
-      font-weight: 500;
-    }
-
-    /* Configuração de Banca */
+    /* Banca */
     .bank-box {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -94,24 +76,11 @@
       gap: 10px;
     }
 
-    .bank-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .bank-row { display: flex; align-items: center; gap: 10px; }
+    .bank-row label { font-size: 0.85rem; color: var(--subtext); white-space: nowrap; }
+    .backup-row { display: flex; gap: 8px; }
 
-    .bank-row label {
-      font-size: 0.85rem;
-      color: var(--subtext);
-      white-space: nowrap;
-    }
-
-    .backup-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    /* Inputs e Form */
+    /* Formulario */
     form {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -132,17 +101,8 @@
       align-items: center;
     }
 
-    .match-inputs {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .match-vs {
-      font-weight: 700;
-      color: var(--blue);
-      font-size: 0.85rem;
-    }
+    .match-inputs { display: flex; align-items: center; gap: 8px; }
+    .match-vs { font-weight: 700; color: var(--blue); font-size: 0.85rem; }
 
     input, select, button {
       background: var(--card-inner);
@@ -156,11 +116,9 @@
       transition: border-color 0.2s;
     }
 
-    input:focus, select:focus {
-      border-color: var(--green);
-    }
+    input:focus, select:focus { border-color: var(--green); }
 
-    /* Seletor de Mercado Robusto */
+    /* Seletor de Mercado */
     .market-selector-box {
       background: var(--card-inner);
       border: 1px solid var(--border);
@@ -171,23 +129,9 @@
       gap: 10px;
     }
 
-    .selector-title {
-      font-size: 0.75rem;
-      color: var(--subtext);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .selector-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    .builder-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .selector-title { font-size: 0.75rem; color: var(--subtext); font-weight: 700; text-transform: uppercase; }
+    .selector-row { display: flex; gap: 8px; }
+    .builder-list { display: flex; flex-direction: column; gap: 6px; }
 
     .builder-item {
       background: var(--card-inner);
@@ -200,7 +144,7 @@
       align-items: center;
     }
 
-    /* Botões */
+    /* Botoes */
     .btn-main {
       background: var(--green);
       color: #000;
@@ -210,10 +154,6 @@
       padding: 11px;
       border-radius: 6px;
       font-size: 0.9rem;
-    }
-
-    .btn-main:hover {
-      opacity: 0.9;
     }
 
     .btn-sec {
@@ -226,25 +166,11 @@
       border-radius: 6px;
     }
 
-    .btn-blue {
-      background: var(--blue);
-      color: #fff;
-      font-weight: 600;
-      border: none;
-    }
+    .btn-blue { background: var(--blue); color: #fff; font-weight: 600; border: none; }
 
-    /* Busca e Filtros */
-    .controls-bar {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .filters-bar {
-      display: flex;
-      gap: 6px;
-    }
+    /* Filtros e Busca */
+    .controls-bar { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+    .filters-bar { display: flex; gap: 6px; }
 
     .filter-btn {
       background: var(--card-bg);
@@ -296,20 +222,11 @@
       border: 1px solid var(--border);
     }
 
-    .fin-item {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.75rem;
-    }
-
+    .fin-item { display: flex; flex-direction: column; font-size: 0.75rem; }
     .fin-item label { color: var(--subtext); font-size: 0.65rem; text-transform: uppercase; }
     .fin-item span { font-weight: 700; margin-top: 2px; }
 
-    .legs-container {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .legs-container { display: flex; flex-direction: column; gap: 6px; }
 
     .leg-row {
       background: var(--card-inner);
@@ -340,35 +257,15 @@
     .btn-chip.green { background: var(--green); color: #000; }
     .btn-chip.red { background: var(--red); color: #fff; }
 
-    .bet-foot {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 4px;
-    }
-
+    .bet-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
     .action-btns { display: flex; gap: 10px; }
 
-    .badge {
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
+    .badge { padding: 3px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
     .badge.pending { background: var(--yellow-bg); color: var(--yellow); }
     .badge.green { background: var(--green-bg); color: var(--green); }
     .badge.red { background: var(--red-bg); color: var(--red); }
 
-    .btn-action {
-      background: transparent;
-      border: none;
-      color: var(--subtext);
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-
+    .btn-action { background: transparent; border: none; color: var(--subtext); cursor: pointer; font-size: 0.8rem; }
     .btn-action.edit:hover { color: var(--blue); }
     .btn-action.del:hover { color: var(--red); }
   </style>
@@ -379,9 +276,10 @@
     <h1>BET MANAGER <span>PRO</span></h1>
   </header>
 
+  <!-- Lista Completa de Times BR e Europa -->
   <datalist id="teamsDatalist"></datalist>
 
-  <!-- Dashboard de Desempenho -->
+  <!-- Metrics Dashboard -->
   <div class="metrics-grid">
     <div class="metric-card">
       <h4>Banca Atual</h4>
@@ -418,7 +316,7 @@
     </div>
   </div>
 
-  <!-- Form de Cadastro e Edição -->
+  <!-- Formulario -->
   <form id="betForm">
     <div class="form-title">
       <span id="formTitleText">📌 Novo Bilhete de Aposta</span>
@@ -428,12 +326,12 @@
     <input type="date" id="betDate" required>
 
     <div class="match-inputs">
-      <input type="text" id="homeTeam" list="teamsDatalist" placeholder="Mandante (Ex: Flamengo)" required autocomplete="off">
+      <input type="text" id="homeTeam" list="teamsDatalist" placeholder="Mandante (Ex: Flamengo / Real Madrid)" required autocomplete="off">
       <span class="match-vs">X</span>
-      <input type="text" id="awayTeam" list="teamsDatalist" placeholder="Visitante (Ex: Palmeiras)" required autocomplete="off">
+      <input type="text" id="awayTeam" list="teamsDatalist" placeholder="Visitante (Ex: Palmeiras / Barcelona)" required autocomplete="off">
     </div>
 
-    <!-- Seletor Duplo de Mercado (Dropdowns Infalíveis) -->
+    <!-- Seletor de Mercado Extensivo -->
     <div class="market-selector-box">
       <span class="selector-title">Selecione o Mercado Rápido</span>
       
@@ -449,13 +347,13 @@
       <div style="border-top: 1px solid var(--border); padding-top: 8px; margin-top: 2px;">
         <span class="selector-title">Ou digite uma opção customizada:</span>
         <div class="selector-row" style="margin-top: 6px;">
-          <input type="text" id="customMarketInput" placeholder="Ex: Jogador X dar 2+ chutes no gol" autocomplete="off">
+          <input type="text" id="customMarketInput" placeholder="Ex: Vini Jr dar 2+ chutes no gol" autocomplete="off">
           <button type="button" class="btn-sec" style="width: auto; white-space: nowrap;" onclick="addCustomLeg()">➕ Add Custom</button>
         </div>
       </div>
     </div>
 
-    <!-- Lista de seleções no bilhete -->
+    <!-- Lista de seleções do bilhete -->
     <div id="builderList" class="builder-list"></div>
 
     <div style="display: flex; gap: 10px;">
@@ -468,7 +366,7 @@
 
   <!-- Filtros e Busca por Time -->
   <div class="controls-bar">
-    <input type="text" id="searchTeamInput" placeholder="🔍 Buscar por time nas apostas..." oninput="render()">
+    <input type="text" id="searchTeamInput" list="teamsDatalist" placeholder="🔍 Buscar por time (ex: Flamengo, Real Madrid)..." oninput="render()">
     <div class="filters-bar">
       <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
       <button class="filter-btn" onclick="setFilter('pending', this)">Pendentes</button>
@@ -483,12 +381,31 @@
   <script>
     const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
-    // Gerador de Mercados Completo e Organizado
+    // Base de Times Brasil e Europa para Autocomplete Solido
+    const defaultTeamsList = [
+      // Brasil - Série A/B e Principais
+      "Flamengo", "Palmeiras", "São Paulo", "Corinthians", "Fluminense", "Botafogo", "Vasco da Gama",
+      "Grêmio", "Internacional", "Atlético-MG", "Cruzeiro", "Santos", "Bahia", "Fortaleza",
+      "Athletico-PR", "Red Bull Bragantino", "Juventude", "Criciúma", "Atlético-GO", "Ceará",
+      "Sport Recife", "Mirassol", "Novorizontino", "Coritiba", "Goiás", "Avaí", "Ponte Preta", "Guarani",
+      // Espanha
+      "Real Madrid", "Barcelona", "Atlético de Madrid", "Girona", "Athletic Bilbao", "Real Sociedad", "Sevilla", "Real Betis", "Villarreal",
+      // Inglaterra
+      "Manchester City", "Arsenal", "Liverpool", "Chelsea", "Manchester United", "Tottenham", "Aston Villa", "Newcastle", "West Ham", "Brighton",
+      // Itália
+      "Inter de Milão", "AC Milan", "Juventus", "Napoli", "Roma", "Lazio", "Atalanta", "Fiorentina",
+      // Alemanha
+      "Bayern de Munique", "Bayer Leverkusen", "Borussia Dortmund", "RB Leipzig", "Eintracht Frankfurt",
+      // França & Portugal
+      "PSG", "Monaco", "Lille", "Marseille", "Benfica", "Sporting", "Porto"
+    ];
+
+    // Gerador de Mercados com Linhas Extensas (Betano Style)
     function gerarMercadosCompletos() {
       const cats = {
+        "⚽ Gols (Geral, Casa & Fora)": [],
         "🎯 Chutes e Finalizações": [],
-        "🚩 Escanteios": [],
-        "⚽ Gols": [],
+        "🚩 Escanteios (Geral, Casa & Fora)": [],
         "🟨 Cartões": [],
         "🚨 Faltas & Impedimentos": [],
         "🏆 Resultado & Principais": [
@@ -509,47 +426,67 @@
           "Jogador para Receber Cartão Amarelo",
           "Jogador para Dar 1+ Chutes no Gol",
           "Jogador para Dar 2+ Chutes no Gol",
+          "Jogador para Dar 3+ Chutes no Gol",
+          "Jogador para Dar 1+ Chutes Totais",
+          "Jogador para Dar 2+ Chutes Totais",
+          "Jogador para Dar 3+ Chutes Totais",
           "Jogador para Sofrer 1+ Faltas",
           "Jogador para Sofrer 2+ Faltas",
-          "Jogador para Dar 1+ Faltas"
+          "Jogador para Dar 1+ Faltas",
+          "Jogador para Dar 2+ Faltas",
+          "Jogador para Fazer 1+ Desarmes"
         ]
       };
 
-      // CHUTES
-      for (let i = 0.5; i <= 20.5; i += 1.0) {
+      // GOLS (Geral + Mandante/Casa + Visitante/Fora)
+      for (let i = 0.5; i <= 8.5; i += 1.0) {
+        cats["⚽ Gols (Geral, Casa & Fora)"].push(`Mais de ${i.toFixed(1)} Gols na Partida`);
+        cats["⚽ Gols (Geral, Casa & Fora)"].push(`Menos de ${i.toFixed(1)} Gols na Partida`);
+      }
+      for (let i = 0.5; i <= 5.5; i += 1.0) {
+        cats["⚽ Gols (Geral, Casa & Fora)"].push(`Mandante (Casa): Mais de ${i.toFixed(1)} Gols`);
+        cats["⚽ Gols (Geral, Casa & Fora)"].push(`Mandante (Casa): Menos de ${i.toFixed(1)} Gols`);
+        cats["⚽ Gols (Geral, Casa & Fora)"].push(`Visitante (Fora): Mais de ${i.toFixed(1)} Gols`);
+        cats["⚽ Gols (Geral, Casa & Fora)"].push(`Visitante (Fora): Menos de ${i.toFixed(1)} Gols`);
+      }
+
+      // CHUTES E FINALIZAÇÕES (Expandido até +18.5 / +32.5)
+      for (let i = 0.5; i <= 18.5; i += 1.0) {
         cats["🎯 Chutes e Finalizações"].push(`Chutes no Gol: Mais de ${i.toFixed(1)} na Partida`);
+        cats["🎯 Chutes e Finalizações"].push(`Mandante - Chutes no Gol: Mais de ${i.toFixed(1)}`);
+        cats["🎯 Chutes e Finalizações"].push(`Visitante - Chutes no Gol: Mais de ${i.toFixed(1)}`);
       }
-      for (let i = 4.5; i <= 35.5; i += 1.0) {
+      for (let i = 0.5; i <= 32.5; i += 1.0) {
         cats["🎯 Chutes e Finalizações"].push(`Chutes Totais: Mais de ${i.toFixed(1)} na Partida`);
+        cats["🎯 Chutes e Finalizações"].push(`Mandante - Chutes Totais: Mais de ${i.toFixed(1)}`);
+        cats["🎯 Chutes e Finalizações"].push(`Visitante - Chutes Totais: Mais de ${i.toFixed(1)}`);
       }
 
-      // ESCANTEIOS
+      // ESCANTEIOS (0.5 até 22.5)
       for (let i = 0.5; i <= 22.5; i += 1.0) {
-        cats["🚩 Escanteios"].push(`Mais de ${i.toFixed(1)} Escanteios na Partida`);
-        cats["🚩 Escanteios"].push(`Menos de ${i.toFixed(1)} Escanteios na Partida`);
+        cats["🚩 Escanteios (Geral, Casa & Fora)"].push(`Mais de ${i.toFixed(1)} Escanteios na Partida`);
+        cats["🚩 Escanteios (Geral, Casa & Fora)"].push(`Menos de ${i.toFixed(1)} Escanteios na Partida`);
       }
-      for (let i = 0.5; i <= 12.5; i += 1.0) {
-        cats["🚩 Escanteios"].push(`Mandante: Mais de ${i.toFixed(1)} Escanteios`);
-        cats["🚩 Escanteios"].push(`Visitante: Mais de ${i.toFixed(1)} Escanteios`);
-      }
-
-      // GOLS
-      for (let i = 0.5; i <= 9.5; i += 1.0) {
-        cats["⚽ Gols"].push(`Mais de ${i.toFixed(1)} Gols na Partida`);
-        cats["⚽ Gols"].push(`Menos de ${i.toFixed(1)} Gols na Partida`);
+      for (let i = 0.5; i <= 14.5; i += 1.0) {
+        cats["🚩 Escanteios (Geral, Casa & Fora)"].push(`Mandante (Casa): Mais de ${i.toFixed(1)} Escanteios`);
+        cats["🚩 Escanteios (Geral, Casa & Fora)"].push(`Visitante (Fora): Mais de ${i.toFixed(1)} Escanteios`);
       }
 
       // CARTÕES
       for (let i = 0.5; i <= 12.5; i += 1.0) {
-        cats["🟨 Cartões"].push(`Cartões: Mais de ${i.toFixed(1)} na Partida`);
-        cats["🟨 Cartões"].push(`Cartões: Menos de ${i.toFixed(1)} na Partida`);
+        cats["🟨 Cartões"].push(`Cartões Totais: Mais de ${i.toFixed(1)}`);
+        cats["🟨 Cartões"].push(`Cartões Totais: Menos de ${i.toFixed(1)}`);
+      }
+      for (let i = 0.5; i <= 6.5; i += 1.0) {
+        cats["🟨 Cartões"].push(`Mandante (Casa): Mais de ${i.toFixed(1)} Cartões`);
+        cats["🟨 Cartões"].push(`Visitante (Fora): Mais de ${i.toFixed(1)} Cartões`);
       }
 
-      // FALTAS & IMPEDIMENTOS
-      for (let i = 12.5; i <= 38.5; i += 1.0) {
+      // FALTAS E IMPEDIMENTOS
+      for (let i = 8.5; i <= 38.5; i += 1.0) {
         cats["🚨 Faltas & Impedimentos"].push(`Faltas Totais: Mais de ${i.toFixed(1)}`);
       }
-      for (let i = 0.5; i <= 8.5; i += 1.0) {
+      for (let i = 0.5; i <= 10.5; i += 1.0) {
         cats["🚨 Faltas & Impedimentos"].push(`Impedimentos: Mais de ${i.toFixed(1)}`);
       }
 
@@ -616,15 +553,16 @@
 
     function updateTeamDatalist() {
       const datalist = document.getElementById('teamsDatalist');
-      const defaultTeams = ['Flamengo', 'Palmeiras', 'São Paulo', 'Corinthians', 'Fluminense', 'Botafogo', 'Vasco', 'Grêmio', 'Internacional', 'Atlético-MG', 'Cruzeiro', 'Santos', 'Bahia', 'Fortaleza', 'Real Madrid', 'Barcelona', 'Manchester City', 'Arsenal', 'Liverpool', 'PSG'];
-      const userTeams = new Set(defaultTeams);
+      const teamSet = new Set(defaultTeamsList);
 
       bets.forEach(b => {
-        const parts = b.match.split(' x ');
-        parts.forEach(p => p && userTeams.add(p.trim()));
+        if (b.match) {
+          const parts = b.match.split(' x ');
+          parts.forEach(p => p && teamSet.add(p.trim()));
+        }
       });
 
-      datalist.innerHTML = Array.from(userTeams).map(t => `<option value="${t}">`).join('');
+      datalist.innerHTML = Array.from(teamSet).sort().map(t => `<option value="${t}">`).join('');
     }
 
     function updateInitialBank(val) {
@@ -645,7 +583,7 @@
       const odds = parseFloat(document.getElementById('odds').value);
 
       if (tempLegs.length === 0) {
-        alert("Por favor, selecione ao menos uma opção para o bilhete.");
+        alert("Por favor, selecione ou digite ao menos uma seleção para o bilhete.");
         return;
       }
 
@@ -681,6 +619,7 @@
       saveAndUpdate();
     });
 
+    // Edição completa de Bilhetes
     function editBet(id) {
       const bet = bets.find(b => b.id === id);
       if (!bet) return;
@@ -688,7 +627,7 @@
       editingBetId = bet.id;
       document.getElementById('betDate').value = bet.date;
       
-      const parts = bet.match.split(' x ');
+      const parts = (bet.match || '').split(' x ');
       document.getElementById('homeTeam').value = parts[0] || '';
       document.getElementById('awayTeam').value = parts[1] || '';
       
@@ -931,7 +870,3 @@
   </script>
 </body>
 </html>
-
-
-
-
