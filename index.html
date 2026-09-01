@@ -124,7 +124,7 @@
       gap: 8px;
     }
 
-    /* Forms & Inputs */
+    /* Form & Inputs */
     form {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -173,39 +173,82 @@
       border-color: var(--accent);
     }
 
-    /* Market Shortcuts */
-    .market-tags {
+    /* Category Market Picker */
+    .market-picker {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .picker-label {
+      font-size: 0.8rem;
+      color: var(--subtext);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cat-tabs {
       display: flex;
       gap: 6px;
       overflow-x: auto;
       padding-bottom: 4px;
     }
 
-    .tag-btn {
-      background: var(--card-inner);
+    .cat-tab {
+      background: var(--card-bg);
       border: 1px solid var(--border);
       color: var(--subtext);
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 20px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
       width: auto;
+      transition: all 0.2s;
     }
 
-    .tag-btn:hover {
-      border-color: var(--accent);
+    .cat-tab.active {
+      background: var(--accent);
       color: #fff;
+      border-color: var(--accent);
     }
 
-    .add-selection-box {
-      background: var(--card-inner);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      padding: 12px;
+    .submarket-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .submarket-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .submarket-btn:hover {
+      border-color: var(--accent);
+      background: rgba(255, 107, 0, 0.1);
+    }
+
+    .custom-input-row {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      margin-top: 4px;
     }
 
     .builder-list {
@@ -224,21 +267,6 @@
       justify-content: space-between;
       align-items: center;
     }
-
-    /* Dynamic Return Calculation Preview */
-    .calc-preview {
-      background: rgba(255, 107, 0, 0.08);
-      border: 1px solid rgba(255, 107, 0, 0.3);
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-    }
-
-    .calc-preview span { color: var(--subtext); }
-    .calc-preview strong { color: var(--green); font-size: 0.95rem; }
 
     .btn-main {
       background: var(--accent);
@@ -286,10 +314,11 @@
     .bet-match { font-size: 1.05rem; font-weight: 800; color: #fff; margin-top: 2px; }
 
     .fin-box {
-      display: flex;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
       background: var(--card-inner);
-      padding: 8px 12px;
+      padding: 10px;
       border-radius: 8px;
       border: 1px solid var(--border);
       align-items: center;
@@ -301,8 +330,8 @@
       font-size: 0.75rem;
     }
 
-    .fin-item label { color: var(--subtext); font-size: 0.68rem; text-transform: uppercase; }
-    .fin-item span { font-weight: 700; }
+    .fin-item label { color: var(--subtext); font-size: 0.65rem; text-transform: uppercase; font-weight: 700; }
+    .fin-item span { font-weight: 700; margin-top: 2px; }
 
     .legs-container {
       display: flex;
@@ -367,7 +396,6 @@
 
     .btn-del:hover { color: var(--red); }
 
-    /* Filters */
     .filters-bar {
       display: flex;
       gap: 6px;
@@ -441,58 +469,41 @@
     <input type="date" id="betDate" required>
 
     <div class="match-inputs">
-      <input type="text" id="homeTeam" list="teamsList" placeholder="Mandante (Ex: Al-Hilal)" required autocomplete="off">
+      <input type="text" id="homeTeam" placeholder="Mandante (Ex: Borussia)" required autocomplete="off">
       <span class="match-vs">X</span>
-      <input type="text" id="awayTeam" list="teamsList" placeholder="Visitante (Ex: Al-Ahly)" required autocomplete="off">
+      <input type="text" id="awayTeam" placeholder="Visitante (Ex: Hamburg)" required autocomplete="off">
     </div>
 
-    <datalist id="teamsList">
-      <option value="Al-Hilal"><option value="Al-Ahly"><option value="Al-Nassr"><option value="Al-Ittihad">
-      <option value="Flamengo"><option value="Palmeiras"><option value="São Paulo"><option value="Corinthians">
-      <option value="Real Madrid"><option value="Barcelona"><option value="Manchester City"><option value="Borussia Dortmund">
-    </datalist>
-
-    <!-- Adicionar Seleções -->
-    <div class="add-selection-box">
-      <span style="font-size: 0.8rem; color: var(--subtext); font-weight: 600;">Adicionar Mercados ao Bilhete:</span>
+    <!-- Seletor de Categorias de Mercados Betano -->
+    <div class="market-picker">
+      <span class="picker-label">Selecione o Mercado (Clique para Inserir)</span>
       
-      <!-- Atalhos de Categorias -->
-      <div class="market-tags">
-        <button type="button" class="tag-btn" onclick="quickMarket('Escanteios: Mais de 3.5 do Mandante')">🚩 Escanteios Mandante</button>
-        <button type="button" class="tag-btn" onclick="quickMarket('Escanteios: Mais de 8.5 na Partida')">🚩 Escanteios Jogo</button>
-        <button type="button" class="tag-btn" onclick="quickMarket('Chutes no Gol: +0.5 (Jogador)')">🎯 Chute no Gol</button>
-        <button type="button" class="tag-btn" onclick="quickMarket('Gols: Mais de 1.5 na Partida')">⚽ Gols (+1.5)</button>
-        <button type="button" class="tag-btn" onclick="quickMarket('Gols: Ambas Marcam (Sim)')">⚽ Ambas Marcam</button>
+      <!-- Categorias Populares -->
+      <div class="cat-tabs">
+        <button type="button" class="cat-tab active" onclick="selectCategory('gols', this)">⚽ Gols</button>
+        <button type="button" class="cat-tab" onclick="selectCategory('escanteios', this)">🚩 Escanteios</button>
+        <button type="button" class="cat-tab" onclick="selectCategory('chutes', this)">🎯 Chutes</button>
+        <button type="button" class="cat-tab" onclick="selectCategory('cartoes', this)">🟨 Cartões</button>
+        <button type="button" class="cat-tab" onclick="selectCategory('resultado', this)">🏆 Resultado</button>
       </div>
 
-      <input type="text" id="marketInput" list="marketsList" placeholder="Escolha ou Digite a Seleção Livremente" autocomplete="off">
-      <datalist id="marketsList">
-        <option value="Escanteios: Mais de 3.5 do Mandante">
-        <option value="Escanteios: Mais de 4.5 do Mandante">
-        <option value="Escanteios: Mais de 8.5 na Partida">
-        <option value="Escanteios: Mais de 10.5 na Partida">
-        <option value="Chutes no Gol: +0.5 Chutes no Gol (Jogador)">
-        <option value="Chutes no Gol: +1.5 Chutes no Gol (Jogador)">
-        <option value="Gols: Mais de 1.5 na Partida">
-        <option value="Gols: Mais de 2.5 na Partida">
-        <option value="Gols: Ambas as Equipes Marcam (Sim)">
-        <option value="Cartões: Mais de 3.5 Cartões Amarelos">
-      </datalist>
+      <!-- Submercados dinâmicos da categoria ativa -->
+      <div id="submarketContainer" class="submarket-grid"></div>
 
-      <button type="button" class="btn-sec" onclick="addLegToForm()">➕ Inserir Seleção no Bilhete</button>
-      <div id="builderList" class="builder-list"></div>
+      <!-- Opção de Texto Livre para Linhas Específicas -->
+      <div class="custom-input-row">
+        <input type="text" id="customMarketInput" placeholder="Ou digite uma linha personalizada..." autocomplete="off">
+        <button type="button" class="btn-sec" style="width: auto; white-space: nowrap;" onclick="addCustomLeg()">➕ Add</button>
+      </div>
     </div>
 
-    <!-- Financeiro da Aposta -->
+    <!-- Lista de seleções adicionadas ao bilhete -->
+    <div id="builderList" class="builder-list"></div>
+
+    <!-- Financeiro da Aposta (Sem caixa de preview) -->
     <div style="display: flex; gap: 10px;">
-      <input type="number" step="0.01" id="stake" placeholder="Stake (R$)" required oninput="calcPreview()">
-      <input type="number" step="0.01" id="odds" placeholder="Odd Total (Ex: 2.10)" required oninput="calcPreview()">
-    </div>
-
-    <!-- Preview do Lucro Potencial -->
-    <div class="calc-preview" id="calcPreviewBox">
-      <span>Retorno Estimado: <strong>R$ 0,00</strong></span>
-      <span>Lucro Previsto: <strong id="previewProfit">R$ 0,00</strong></span>
+      <input type="number" step="0.01" id="stake" placeholder="Stake / Valor (R$)" required>
+      <input type="number" step="0.01" id="odds" placeholder="Odd Total (Ex: 1.85)" required>
     </div>
 
     <button type="submit" class="btn-main">Cadastrar Bilhete de Aposta</button>
@@ -512,9 +523,67 @@
   <script>
     const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 
+    // Banco de dados de mercados mais populares da Betano
+    const marketCategories = {
+      gols: [
+        'Gols: Ambas as Equipes Marcam (Sim)',
+        'Gols: Ambas as Equipes Marcam (Não)',
+        'Gols: Mais de 1.5 na Partida',
+        'Gols: Mais de 2.5 na Partida',
+        'Gols: Mais de 3.5 na Partida',
+        'Gols: Menos de 2.5 na Partida',
+        'Gols: Menos de 3.5 na Partida',
+        'Gols: Mais de 0.5 no 1º Tempo',
+        'Gols: Mais de 1.5 no 1º Tempo',
+        'Gols: Mandante Mais de 1.5 Gols',
+        'Gols: Visitante Mais de 0.5 Gols'
+      ],
+      escanteios: [
+        'Escanteios: Mais de 8.5 na Partida',
+        'Escanteios: Mais de 9.5 na Partida',
+        'Escanteios: Mais de 10.5 na Partida',
+        'Escanteios: Mais de 11.5 na Partida',
+        'Escanteios: Menos de 11.5 na Partida',
+        'Escanteios: Mandante Mais de 3.5',
+        'Escanteios: Mandante Mais de 4.5',
+        'Escanteios: Visitante Mais de 3.5',
+        'Escanteios: Visitante Mais de 4.5',
+        'Escanteios: Mais de 4.5 no 1º Tempo'
+      ],
+      chutes: [
+        'Chutes no Gol: Jogador +0.5 no Gol',
+        'Chutes no Gol: Jogador +1.5 no Gol',
+        'Chutes no Gol: Mais de 8.5 na Partida',
+        'Chutes no Gol: Mais de 9.5 na Partida',
+        'Chutes Totais: Jogador +1.5 Chutes',
+        'Chutes Totais: Jogador +2.5 Chutes',
+        'Chutes Totais: Mandante Mais de 12.5',
+        'Chutes Totais: Visitante Mais de 8.5'
+      ],
+      cartoes: [
+        'Cartões: Ambas as Equipes Recebem Cartão',
+        'Cartões: Mais de 3.5 Cartões Amarelos',
+        'Cartões: Mais de 4.5 Cartões Amarelos',
+        'Cartões: Mais de 5.5 Cartões Amarelos',
+        'Cartões: Jogador para Receber Cartão',
+        'Cartões: Mandante Mais de 1.5 Cartões'
+      ],
+      resultado: [
+        'Resultado Final: Vitória Mandante (1)',
+        'Resultado Final: Empate (X)',
+        'Resultado Final: Vitória Visitante (2)',
+        'Dupla Chance: Mandante ou Empate (1X)',
+        'Dupla Chance: Visitante ou Empate (X2)',
+        'Empate Anula Aposta: Mandante',
+        'Empate Anula Aposta: Visitante',
+        'Intervalo/Final: Mandante / Mandante'
+      ]
+    };
+
     let bets = JSON.parse(localStorage.getItem('myBets')) || [];
     let initialBank = parseFloat(localStorage.getItem('initialBank')) || 0;
     let currentFilter = 'all';
+    let currentCategory = 'gols';
     let tempLegs = [];
 
     document.getElementById('betDate').valueAsDate = new Date();
@@ -526,12 +595,31 @@
       render();
     }
 
-    function quickMarket(text) {
-      document.getElementById('marketInput').value = text;
+    function selectCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSubmarkets();
     }
 
-    function addLegToForm() {
-      const input = document.getElementById('marketInput');
+    function renderSubmarkets() {
+      const container = document.getElementById('submarketContainer');
+      const items = marketCategories[currentCategory] || [];
+      
+      container.innerHTML = items.map(item => `
+        <button type="button" class="submarket-btn" onclick="addLegFromPicker('${item}')">
+          ➕ ${item}
+        </button>
+      `).join('');
+    }
+
+    function addLegFromPicker(marketName) {
+      tempLegs.push({ id: Date.now() + Math.random(), name: marketName, status: 'pending' });
+      renderBuilder();
+    }
+
+    function addCustomLeg() {
+      const input = document.getElementById('customMarketInput');
       const val = input.value.trim();
       if (val) {
         tempLegs.push({ id: Date.now() + Math.random(), name: val, status: 'pending' });
@@ -555,27 +643,6 @@
       `).join('');
     }
 
-    function calcPreview() {
-      const stake = parseFloat(document.getElementById('stake').value) || 0;
-      const odds = parseFloat(document.getElementById('odds').value) || 0;
-
-      const totalReturn = stake * odds;
-      const profit = totalReturn - stake;
-
-      const box = document.getElementById('calcPreviewBox');
-      if (stake > 0 && odds > 0) {
-        box.innerHTML = `
-          <span>Retorno: <strong>R$ ${totalReturn.toFixed(2)}</strong></span>
-          <span>Lucro Previsto: <strong style="color:var(--green)">+R$ ${profit.toFixed(2)}</strong></span>
-        `;
-      } else {
-        box.innerHTML = `
-          <span>Retorno Estimado: <strong>R$ 0,00</strong></span>
-          <span>Lucro Previsto: <strong>R$ 0,00</strong></span>
-        `;
-      }
-    }
-
     document.getElementById('betForm').addEventListener('submit', (e) => {
       e.preventDefault();
       
@@ -588,8 +655,8 @@
       const odds = parseFloat(document.getElementById('odds').value);
 
       if (tempLegs.length === 0) {
-        const mVal = document.getElementById('marketInput').value.trim() || 'Aposta Simples';
-        tempLegs.push({ id: Date.now(), name: mVal, status: 'pending' });
+        alert("Por favor, selecione ao menos um mercado para o bilhete.");
+        return;
       }
 
       bets.unshift({
@@ -607,7 +674,6 @@
       saveAndUpdate();
       e.target.reset();
       document.getElementById('betDate').valueAsDate = new Date();
-      calcPreview();
     });
 
     function toggleLegStatus(betId, legId, newStatus) {
@@ -697,7 +763,9 @@
           return;
         }
 
-        const netBetProfit = b.status === 'green' ? (betReturn - b.stake) : (b.status === 'red' ? -b.stake : 0);
+        const potentialReturn = b.stake * b.odds;
+        const potentialProfit = potentialReturn - b.stake;
+        const netBetProfit = b.status === 'green' ? potentialProfit : (b.status === 'red' ? -b.stake : 0);
 
         const div = document.createElement('div');
         div.className = 'bet-card';
@@ -726,6 +794,7 @@
             <span class="badge ${badgeClass}">${badgeText}</span>
           </div>
 
+          <!-- Exibição de Valores no Bilhete -->
           <div class="fin-box">
             <div class="fin-item">
               <label>Apostado</label>
@@ -736,13 +805,13 @@
               <span>@ ${b.odds.toFixed(2)}</span>
             </div>
             <div class="fin-item">
-              <label>Retorno Potencial</label>
-              <span style="color:var(--blue)">R$ ${(b.stake * b.odds).toFixed(2)}</span>
+              <label>Retorno</label>
+              <span style="color:var(--blue)">R$ ${potentialReturn.toFixed(2)}</span>
             </div>
-            <div class="fin-item" style="margin-left:auto; text-align:right;">
-              <label>Resultado</label>
-              <span style="color: ${netBetProfit > 0 ? 'var(--green)' : netBetProfit < 0 ? 'var(--red)' : 'var(--subtext)'}">
-                ${netBetProfit > 0 ? '+' : ''}${b.status !== 'pending' ? 'R$ ' + netBetProfit.toFixed(2) : '--'}
+            <div class="fin-item">
+              <label>Lucro</label>
+              <span style="color: ${b.status === 'green' ? 'var(--green)' : b.status === 'red' ? 'var(--red)' : 'var(--yellow)'}">
+                ${b.status === 'pending' ? '+R$ ' + potentialProfit.toFixed(2) : (netBetProfit >= 0 ? '+R$ ' + netBetProfit.toFixed(2) : '-R$ ' + Math.abs(netBetProfit).toFixed(2))}
               </span>
             </div>
           </div>
@@ -812,9 +881,9 @@
       input.click();
     }
 
+    // Inicialização
+    renderSubmarkets();
     render();
   </script>
 </body>
 </html>
-
-
